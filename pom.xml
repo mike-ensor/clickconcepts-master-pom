@@ -8,7 +8,6 @@
 
     <name>${project.artifactId}</name>
     <description>This is a master pom that contains Site documentation</description>
-    <!--<url>${site.url}</url>-->
 
     <scm>
         <connection>scm:git:ssh://${repository.domain}/${repository.user}/${repository.name}.git</connection>

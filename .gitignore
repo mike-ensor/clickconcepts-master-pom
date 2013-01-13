@@ -18,3 +18,7 @@ chromedriver.log
 .pmd
 .pmdruleset
 .metadata
+
+# maven release files
+pom.xml.releaseBackup
+release.properties
