@@ -131,6 +131,7 @@
                     <version>${plugin.taglist.version}</version>
                     <inherited>true</inherited>
                     <configuration>
+                        <aggregate>true</aggregate>
                         <encoding>${project.build.sourceEncoding}</encoding>
                         <sourceFileLocale>en</sourceFileLocale>
                         <tagListOptions>
@@ -426,8 +427,10 @@
                                 scm, plugin-management, modules, summary -->
                                 <reports>
                                     <report>summary</report>
+                                    <report>index</report>
                                     <report>project-team</report>
                                     <report>dependencies</report>
+                                    <report>dependency-convergence</report>
                                     <report>issue-tracking</report>
                                     <report>scm</report>
                                     <report>modules</report>
@@ -457,11 +460,6 @@
                                     <failOnViolation>false</failOnViolation>
                                 </configuration>
                             </plugin>
-
-                            <!--<plugin>-->
-                            <!--<groupId>org.apache.maven.plugins</groupId>-->
-                            <!--<artifactId>maven-surefire-plugin</artifactId>-->
-                            <!--</plugin>-->
                             <plugin>
                                 <groupId>org.apache.maven.plugins</groupId>
                                 <artifactId>maven-surefire-report-plugin</artifactId>
@@ -507,6 +505,51 @@
                             <plugin>
                                 <groupId>org.codehaus.mojo</groupId>
                                 <artifactId>taglist-maven-plugin</artifactId>
+                                <!-- Configuration has been duplicated from PluginManagement > Plugins [taglist-maven-plugin] -->
+                                <configuration>
+                                    <encoding>${project.build.sourceEncoding}</encoding>
+                                    <sourceFileLocale>en</sourceFileLocale>
+                                    <tagListOptions>
+                                        <tagClasses>
+                                            <tagClass>
+                                                <displayName>Code sections needing review</displayName>
+                                                <tags>
+                                                    <tag>
+                                                        <matchString>REVIEWREQUIRED</matchString>
+                                                        <matchType>exact</matchType>
+                                                    </tag>
+                                                </tags>
+                                            </tagClass>
+                                            <tagClass>
+                                                <displayName>Todo Work</displayName>
+                                                <tags>
+                                                    <tag>
+                                                        <matchString>todo</matchString>
+                                                        <matchType>ignoreCase</matchType>
+                                                    </tag>
+                                                    <tag>
+                                                        <matchString>@todo</matchString>
+                                                        <matchType>ignoreCase</matchType>
+                                                    </tag>
+                                                </tags>
+                                            </tagClass>
+                                            <tagClass>
+                                                <displayName>Noted Bugs</displayName>
+                                                <tag>
+                                                    <matchString>fixme</matchString>
+                                                    <matchType>ignoreCase</matchType>
+                                                </tag>
+                                            </tagClass>
+                                            <tagClass>
+                                                <displayName>Deprecated Items</displayName>
+                                                <tag>
+                                                    <matchString>@deprecated</matchString>
+                                                    <matchType>ignoreCase</matchType>
+                                                </tag>
+                                            </tagClass>
+                                        </tagClasses>
+                                    </tagListOptions>
+                                </configuration>
                             </plugin>
                         </reportPlugins>
                     </configuration>
