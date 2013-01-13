@@ -82,7 +82,7 @@
         <plugin.resources.version>2.6</plugin.resources.version>
         <plugin.site.version>3.2</plugin.site.version>
         <plugin.source.version>2.2.1</plugin.source.version>
-        <plugin.surefire.version>2.12</plugin.surefire.version>
+        <plugin.surefire.version>2.13</plugin.surefire.version>
         <plugin.taglist.version>2.4</plugin.taglist.version>
         <plugin.wagon-ssh.version>2.2</plugin.wagon-ssh.version>
         <plugin.wagon-webdav.version>1.0</plugin.wagon-webdav.version>
@@ -235,6 +235,12 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-report-plugin</artifactId>
+                    <version>${plugin.surefire.version}</version>
+                    <inherited>true</inherited>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
                     <version>${plugin.failsafe.version}</version>
                     <inherited>true</inherited>
@@ -346,6 +352,11 @@
                     <artifactId>findbugs-maven-plugin</artifactId>
                     <version>${plugin.findbugs.version}</version>
                     <inherited>true</inherited>
+                    <configuration>
+                        <skip>${findbugs.skip}</skip>
+                        <maxHeap>512</maxHeap>
+                        <xmlOutput>true</xmlOutput>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -430,18 +441,35 @@
                             <plugin>
                                 <groupId>org.apache.maven.plugins</groupId>
                                 <artifactId>maven-checkstyle-plugin</artifactId>
+                                <!-- TODO: Why are there two checkstyle links, if this is removed, none are displayed, otherwise two -->
                             </plugin>
                             <plugin>
                                 <groupId>org.apache.maven.plugins</groupId>
                                 <artifactId>maven-pmd-plugin</artifactId>
+                                <!-- NOTE: This is a duplication of the Configuration section on PluginManagement > PMD Plugin -->
+                                <configuration>
+                                    <skip>${pmd.skip}</skip>
+                                    <targetJdk>${maven.compiler.source}</targetJdk>
+                                    <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
+                                    <rulesets>
+                                        <ruleset>${maven-pmd-plugin.configLocation}</ruleset>
+                                    </rulesets>
+                                    <failOnViolation>false</failOnViolation>
+                                </configuration>
+                            </plugin>
+
+                            <!--<plugin>-->
+                            <!--<groupId>org.apache.maven.plugins</groupId>-->
+                            <!--<artifactId>maven-surefire-plugin</artifactId>-->
+                            <!--</plugin>-->
+                            <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-surefire-report-plugin</artifactId>
+                                <version>${plugin.surefire.version}</version>
                             </plugin>
                             <plugin>
                                 <groupId>org.apache.maven.plugins</groupId>
                                 <artifactId>maven-javadoc-plugin</artifactId>
-                            </plugin>
-                            <plugin>
-                                <groupId>org.apache.maven.plugins</groupId>
-                                <artifactId>maven-surefire-plugin</artifactId>
                             </plugin>
                             <plugin>
                                 <groupId>org.apache.maven.plugins</groupId>
@@ -462,11 +490,11 @@
                             </plugin>
                             <!-- Will uncomment if I can get cobertura to run once only -->
                             <!--<plugin>-->
-                                <!--<groupId>org.codehaus.mojo</groupId>-->
-                                <!--<artifactId>cobertura-maven-plugin</artifactId>-->
-                                <!--<configuration>-->
-                                    <!--<skip>${cobertura.skip}</skip>-->
-                                <!--</configuration>-->
+                            <!--<groupId>org.codehaus.mojo</groupId>-->
+                            <!--<artifactId>cobertura-maven-plugin</artifactId>-->
+                            <!--<configuration>-->
+                            <!--<skip>${cobertura.skip}</skip>-->
+                            <!--</configuration>-->
                             <!--</plugin>-->
                             <plugin>
                                 <groupId>org.codehaus.mojo</groupId>
@@ -552,11 +580,23 @@
                                     <!-- Intention is to show off the enforcer plugin make sure that there is a specific property set -->
                                     <message>Required site.url parameter missing</message>
                                 </requireProperty>
+                                <requireProperty>
+                                    <property>repository.domain</property>
+                                    <message>Required parameter repository.domain is missing in the Project's Properties (Typical values [github.com or bitbucket.org]</message>
+                                </requireProperty>
+                                <requireProperty>
+                                    <property>repository.name</property>
+                                    <message>Required parameter repository.user is missing in the Project's Properties</message>
+                                </requireProperty>
                             </rules>
                             <fail>true</fail>
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
