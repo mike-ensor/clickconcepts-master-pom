@@ -18,6 +18,12 @@
     </scm>
 
     <distributionManagement>
+        <repository>
+            <id>nexus-releases</id>
+            <name>Nexus Release Repository</name>
+            <url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+        <!--<site>-->
         <site>
             <id>site-docs</id>
             <url>${site.url}/${project.artifactId}</url>
@@ -31,6 +37,14 @@
         <name>Click Concepts</name>
         <url>http://www.ensor.cc</url>
     </organization>
+
+    <licenses>
+        <license>
+            <name>Creative Commons By, Version 3.0</name>
+            <url>http://creativecommons.org/licenses/by/3.0/</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
     <developers>
         <developer>
@@ -71,6 +85,7 @@
         <plugin.enforcer.version>1.2</plugin.enforcer.version>
         <plugin.failsafe.version>2.12.4</plugin.failsafe.version>
         <plugin.findbugs.version>2.5.2</plugin.findbugs.version>
+        <plugin.gpg.version>1.4</plugin.gpg.version>
         <plugin.install.version>2.4</plugin.install.version>
         <plugin.jar.version>2.4</plugin.jar.version>
         <plugin.javadoc.version>2.9</plugin.javadoc.version>
@@ -634,6 +649,60 @@
     </dependencies>
 
     <profiles>
+        <profile>
+            <id>release-sign-artifacts</id>
+            <!-- Settings file must define a proflie called "gpg" that has the value for the password needed below -->
+            <!-- mvn clean release:clean release:prepare release:perform -B -Pgpg -->
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>enforce-property</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                                <configuration>
+                                    <rules>
+                                        <requireProperty>
+                                            <property>gpg.passcode</property>
+                                            <message>Passcode must be set to sign and release</message>
+                                        </requireProperty>
+                                    </rules>
+                                    <fail>true</fail>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${plugin.gpg.version}</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                                <configuration>
+                                    <passphrase>${gpg.passphrase}</passphrase>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <profile>
             <id>cobertura</id>
             <build>
