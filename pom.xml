@@ -56,18 +56,18 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <!-- dependency versions -->
-        <logback.version>1.0.9</logback.version>
-        <slf4j.version>1.7.2</slf4j.version>
+        <cobertura.version>1.9.2</cobertura.version>
 
         <!-- Plugin versions -->
         <plugin.assembly.version>2.4</plugin.assembly.version>
         <plugin.checkstyle.version>2.9.1</plugin.checkstyle.version>
         <plugin.clean.version>2.5</plugin.clean.version>
-        <plugin.cobertura-maven.version>2.5.1</plugin.cobertura-maven.version>
+        <plugin.changelog.version>2.2</plugin.changelog.version>
+        <plugin.cobertura.version>2.5.2</plugin.cobertura.version>
         <plugin.compiler.version>3.0</plugin.compiler.version>
         <plugin.dependency.version>2.6</plugin.dependency.version>
         <plugin.deploy.version>2.7</plugin.deploy.version>
+        <plugin.eclipse.version>2.9</plugin.eclipse.version>
         <plugin.enforcer.version>1.2</plugin.enforcer.version>
         <plugin.failsafe.version>2.12.4</plugin.failsafe.version>
         <plugin.findbugs.version>2.5.2</plugin.findbugs.version>
@@ -76,24 +76,24 @@
         <plugin.javadoc.version>2.9</plugin.javadoc.version>
         <plugin.jrebel.version>1.1.3</plugin.jrebel.version>
         <plugin.jxr.version>2.3</plugin.jxr.version>
-        <plugin.pmd-plugin.version>2.7.1</plugin.pmd-plugin.version>
+        <plugin.pmd.version>2.7.1</plugin.pmd.version>
         <plugin.project-info-reports.version>2.6</plugin.project-info-reports.version>
         <plugin.release.version>2.4</plugin.release.version>
         <plugin.resources.version>2.6</plugin.resources.version>
         <plugin.site.version>3.2</plugin.site.version>
-        <plugin.maven-changelog.version>2.2</plugin.maven-changelog.version>
         <plugin.source.version>2.2.1</plugin.source.version>
         <plugin.surefire.version>2.12</plugin.surefire.version>
         <plugin.taglist.version>2.4</plugin.taglist.version>
         <plugin.wagon-ssh.version>2.2</plugin.wagon-ssh.version>
         <plugin.wagon-webdav.version>1.0</plugin.wagon-webdav.version>
-        <plugin.versions-maven.version>1.3.1</plugin.versions-maven.version>
+        <plugin.versions.version>1.3.1</plugin.versions.version>
 
         <maven-checkstyle-plugin.configLocation>${project.basedir}/code-analysis/checkstyle.xml</maven-checkstyle-plugin.configLocation>
         <maven-pmd-plugin.configLocation>${project.basedir}/code-analysis/pmd.xml</maven-pmd-plugin.configLocation>
         <surefire.jvm.args>-Xms256m -Xmx512m -XX:MaxPermSize=512m</surefire.jvm.args>
 
         <changelog.fileUri>${project.scm.url}/tree/master/%FILE%</changelog.fileUri>
+        <cobertura.base.package>com.clickconcepts</cobertura.base.package>
 
         <checkstyle.skip>false</checkstyle.skip>
         <cobertura.skip>false</cobertura.skip>
@@ -126,39 +126,97 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-changelog-plugin</artifactId>
-                    <version>${plugin.maven-changelog.version}</version>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>taglist-maven-plugin</artifactId>
+                    <version>${plugin.taglist.version}</version>
+                    <inherited>true</inherited>
+                    <configuration>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                        <sourceFileLocale>en</sourceFileLocale>
+                        <tagListOptions>
+                            <tagClasses>
+                                <tagClass>
+                                    <displayName>Code sections needing review</displayName>
+                                    <tags>
+                                        <tag>
+                                            <matchString>REVIEWREQUIRED</matchString>
+                                            <matchType>exact</matchType>
+                                        </tag>
+                                    </tags>
+                                </tagClass>
+                                <tagClass>
+                                    <displayName>Todo Work</displayName>
+                                    <tags>
+                                        <tag>
+                                            <matchString>todo</matchString>
+                                            <matchType>ignoreCase</matchType>
+                                        </tag>
+                                        <tag>
+                                            <matchString>@todo</matchString>
+                                            <matchType>ignoreCase</matchType>
+                                        </tag>
+                                    </tags>
+                                </tagClass>
+                                <tagClass>
+                                    <displayName>Noted Bugs</displayName>
+                                    <tag>
+                                        <matchString>fixme</matchString>
+                                        <matchType>ignoreCase</matchType>
+                                    </tag>
+                                </tagClass>
+                                <tagClass>
+                                    <displayName>Deprecated Items</displayName>
+                                    <tag>
+                                        <matchString>@deprecated</matchString>
+                                        <matchType>ignoreCase</matchType>
+                                    </tag>
+                                </tagClass>
+                            </tagClasses>
+                        </tagListOptions>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-assembly-plugin</artifactId>
-                    <version>${plugin.assembly.version}</version>
+                    <artifactId>maven-eclipse-plugin</artifactId>
+                    <version>${plugin.eclipse.version}</version>
+                    <inherited>true</inherited>
+                    <configuration>
+                        <additionalProjectnatures>
+                            <projectnature>
+                                org.eclipse.jdt.groovy.core.groovyNature
+                            </projectnature>
+                        </additionalProjectnatures>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-changelog-plugin</artifactId>
+                    <version>${plugin.changelog.version}</version>
+                    <inherited>true</inherited>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>${plugin.resources.version}</version>
+                    <inherited>true</inherited>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>${plugin.jar.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-source-plugin</artifactId>
-                    <version>${plugin.source.version}</version>
+                    <inherited>true</inherited>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
                     <version>${plugin.enforcer.version}</version>
+                    <inherited>true</inherited>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${plugin.compiler.version}</version>
+                    <inherited>true</inherited>
                     <configuration>
                         <verbose>true</verbose>
                         <fork>true</fork>
@@ -173,26 +231,42 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${plugin.surefire.version}</version>
+                    <inherited>true</inherited>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
                     <version>${plugin.failsafe.version}</version>
+                    <inherited>true</inherited>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
                     <version>${plugin.project-info-reports.version}</version>
+                    <inherited>true</inherited>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jxr-plugin</artifactId>
                     <version>${plugin.jxr.version}</version>
+                    <inherited>true</inherited>
+                    <configuration>
+                        <aggregate>true</aggregate>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>process-resources</phase>
+                            <goals>
+                                <goal>jxr</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
                     <version>${plugin.checkstyle.version}</version>
+                    <inherited>true</inherited>
                     <configuration>
                         <skip>${checkstyle.skip}</skip>
                         <configLocation>${maven-checkstyle-plugin.configLocation}</configLocation>
@@ -200,11 +274,21 @@
                         <enableRulesSummary>true</enableRulesSummary>
                         <includeTestSourceDirectory>true</includeTestSourceDirectory>
                     </configuration>
+                    <executions>
+                        <execution>
+                            <id>run-checkstyle</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>checkstyle</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-pmd-plugin</artifactId>
-                    <version>${plugin.pmd-plugin.version}</version>
+                    <version>${plugin.pmd.version}</version>
+                    <inherited>true</inherited>
                     <configuration>
                         <skip>${pmd.skip}</skip>
                         <targetJdk>${maven.compiler.source}</targetJdk>
@@ -214,11 +298,21 @@
                         </rulesets>
                         <failOnViolation>false</failOnViolation>
                     </configuration>
+                    <executions>
+                        <execution>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>check</goal>
+                                <goal>cpd-check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>${plugin.javadoc.version}</version>
+                    <inherited>true</inherited>
                     <configuration>
                         <skip>${javadocs.skip}</skip>
                         <failOnError>false</failOnError>
@@ -227,80 +321,175 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
-                    <version>${plugin.versions-maven.version}</version>
+                    <version>${plugin.versions.version}</version>
+                    <inherited>true</inherited>
                 </plugin>
                 <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>cobertura-maven-plugin</artifactId>
-                    <version>${plugin.cobertura-maven.version}</version>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${plugin.source.version}</version>
+                    <inherited>true</inherited>
                     <configuration>
-                        <skip>${cobertura.skip}</skip>
-                        <maxmem>1024m</maxmem>
-                        <formats>
-                            <format>html</format>
-                            <format>xml</format>
-                        </formats>
-                        <check>
-                            <haltOnFailure>false</haltOnFailure>
-                            <!-- Per-class thresholds -->
-                            <lineRate>70</lineRate>
-                            <branchRate>70</branchRate>
-                            <!-- POSSIBLE RESTRICTIONS FOR COVERAGE -->
-                            <!-- Project-wide thresholds -->
-                            <!--<totalLineRate>90</totalLineRate>-->
-                            <!--<totalBranchRate>90</totalBranchRate>-->
-                            <!--<regexes>-->
-                            <!--<regex>-->
-                            <!--<pattern>cc.ensor.maven.service.model.*</pattern>-->
-                            <!--<branchRate>0</branchRate>-->
-                            <!--<lineRate>0</lineRate>-->
-                            <!--</regex>-->
-                            <!--</regexes>-->
-                        </check>
-                        <instrumentation>
-                            <includes>
-                                <include>**/*.class</include>
-                            </includes>
-                            <excludes>
-                                <exclude>**/model/*.class</exclude>
-                            </excludes>
-                        </instrumentation>
+                        <attach>true</attach>
                     </configuration>
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <goals>
+                                <goal>jar-no-fork</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>findbugs-maven-plugin</artifactId>
                     <version>${plugin.findbugs.version}</version>
+                    <inherited>true</inherited>
                 </plugin>
                 <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>taglist-maven-plugin</artifactId>
-                    <version>${plugin.taglist.version}</version>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>${plugin.assembly.version}</version>
+                    <inherited>true</inherited>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
                     <version>${plugin.release.version}</version>
+                    <inherited>true</inherited>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
                     <version>${plugin.dependency.version}</version>
+                    <inherited>true</inherited>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
                     <version>${plugin.deploy.version}</version>
+                    <inherited>true</inherited>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-clean-plugin</artifactId>
                     <version>${plugin.clean.version}</version>
+                    <inherited>true</inherited>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-install-plugin</artifactId>
                     <version>${plugin.install.version}</version>
+                    <inherited>true</inherited>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>${plugin.site.version}</version>
+                    <inherited>true</inherited>
+                    <configuration>
+                        <attach>true</attach>
+                        <reportPlugins>
+                            <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-changelog-plugin</artifactId>
+                                <configuration>
+                                    <type>range</type>
+                                    <range>10</range>
+                                    <displayFileDetailUrl>${changelog.fileUri}</displayFileDetailUrl>
+                                    <headingDateFormat>MM-dd-yyyy</headingDateFormat>
+                                    <outputEncoding>${project.reporting.outputEncoding}</outputEncoding>
+                                </configuration>
+                            </plugin>
+                            <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-project-info-reports-plugin</artifactId>
+                                <configuration>
+                                    <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
+                                    <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+                                </configuration>
+                                <!-- simpler configuration without reportSets available for usual cases -->
+                                <!-- distribution-management, index, dependencies, help, issue-tracking, plugins, cim,
+                                license, dependency-management, mailing-list, project-team, dependency-convergence,
+                                scm, plugin-management, modules, summary -->
+                                <reports>
+                                    <report>summary</report>
+                                    <report>project-team</report>
+                                    <report>dependencies</report>
+                                    <report>issue-tracking</report>
+                                    <report>scm</report>
+                                    <report>modules</report>
+                                    <report>plugins</report>
+                                </reports>
+                            </plugin>
+                            <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-jxr-plugin</artifactId>
+                            </plugin>
+                            <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-checkstyle-plugin</artifactId>
+                            </plugin>
+                            <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-pmd-plugin</artifactId>
+                            </plugin>
+                            <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-javadoc-plugin</artifactId>
+                            </plugin>
+                            <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-surefire-plugin</artifactId>
+                            </plugin>
+                            <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-failsafe-plugin</artifactId>
+                            </plugin>
+                            <plugin>
+                                <groupId>org.codehaus.mojo</groupId>
+                                <artifactId>versions-maven-plugin</artifactId>
+                                <reportSets>
+                                    <reportSet>
+                                        <reports>
+                                            <report>dependency-updates-report</report>
+                                            <report>plugin-updates-report</report>
+                                            <report>property-updates-report</report>
+                                        </reports>
+                                    </reportSet>
+                                </reportSets>
+                            </plugin>
+                            <!-- Will uncomment if I can get cobertura to run once only -->
+                            <!--<plugin>-->
+                                <!--<groupId>org.codehaus.mojo</groupId>-->
+                                <!--<artifactId>cobertura-maven-plugin</artifactId>-->
+                                <!--<configuration>-->
+                                    <!--<skip>${cobertura.skip}</skip>-->
+                                <!--</configuration>-->
+                            <!--</plugin>-->
+                            <plugin>
+                                <groupId>org.codehaus.mojo</groupId>
+                                <artifactId>findbugs-maven-plugin</artifactId>
+                                <configuration>
+                                    <skip>${findbugs.skip}</skip>
+                                    <xmlOutput>true</xmlOutput>
+                                </configuration>
+                            </plugin>
+                            <plugin>
+                                <groupId>org.codehaus.mojo</groupId>
+                                <artifactId>taglist-maven-plugin</artifactId>
+                            </plugin>
+                        </reportPlugins>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>attach-descriptor</id>
+                            <goals>
+                                <goal>attach-descriptor</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -308,293 +497,44 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <configuration>
-                    <attach>true</attach>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>generate-sources</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
-                <artifactId>maven-site-plugin</artifactId>
-                <version>${plugin.site.version}</version>
-                <configuration>
-                    <attach>true</attach>
-                    <reportPlugins>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-changelog-plugin</artifactId>
-                            <configuration>
-                                <type>range</type>
-                                <range>10</range>
-                                <displayFileDetailUrl>${changelog.fileUri}</displayFileDetailUrl>
-                                <headingDateFormat>MM-dd-yyyy</headingDateFormat>
-                                <outputEncoding>${project.reporting.outputEncoding}</outputEncoding>
-                            </configuration>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-project-info-reports-plugin</artifactId>
-                            <configuration>
-                                <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
-                                <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
-                            </configuration>
-                            <!-- simpler configuration without reportSets available for usual cases -->
-                            <!-- distribution-management, index, dependencies, help, issue-tracking, plugins, cim,
-                            license, dependency-management, mailing-list, project-team, dependency-convergence,
-                            scm, plugin-management, modules, summary -->
-                            <reports>
-                                <report>summary</report>
-                                <report>project-team</report>
-                                <report>dependencies</report>
-                                <report>issue-tracking</report>
-                                <report>scm</report>
-                                <report>modules</report>
-                                <report>plugins</report>
-                            </reports>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-jxr-plugin</artifactId>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-checkstyle-plugin</artifactId>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-pmd-plugin</artifactId>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-javadoc-plugin</artifactId>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-surefire-plugin</artifactId>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-failsafe-plugin</artifactId>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.codehaus.mojo</groupId>
-                            <artifactId>versions-maven-plugin</artifactId>
-                            <reportSets>
-                                <reportSet>
-                                    <reports>
-                                        <report>dependency-updates-report</report>
-                                        <report>plugin-updates-report</report>
-                                        <report>property-updates-report</report>
-                                    </reports>
-                                </reportSet>
-                            </reportSets>
-                        </plugin>
-                        <!--<plugin>-->
-                        <!--<groupId>org.codehaus.mojo</groupId>-->
-                        <!--<artifactId>cobertura-maven-plugin</artifactId>-->
-                        <!--<configuration>-->
-                        <!--<skip>${cobertura.skip}</skip>-->
-                        <!--</configuration>-->
-                        <!--</plugin>-->
-                        <plugin>
-                            <groupId>org.codehaus.mojo</groupId>
-                            <artifactId>findbugs-maven-plugin</artifactId>
-                            <configuration>
-                                <skip>${findbugs.skip}</skip>
-                                <xmlOutput>true</xmlOutput>
-                            </configuration>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.codehaus.mojo</groupId>
-                            <artifactId>taglist-maven-plugin</artifactId>
-                            <configuration>
-                                <encoding>${project.build.sourceEncoding}</encoding>
-                                <sourceFileLocale>en</sourceFileLocale>
-                                <tagListOptions>
-                                    <tagClasses>
-                                        <tagClass>
-                                            <displayName>Code sections needing review</displayName>
-                                            <tags>
-                                                <tag>
-                                                    <matchString>REVIEWREQUIRED</matchString>
-                                                    <matchType>exact</matchType>
-                                                </tag>
-                                            </tags>
-                                        </tagClass>
-                                        <tagClass>
-                                            <displayName>Todo Work</displayName>
-                                            <tags>
-                                                <tag>
-                                                    <matchString>todo</matchString>
-                                                    <matchType>ignoreCase</matchType>
-                                                </tag>
-                                                <tag>
-                                                    <matchString>@todo</matchString>
-                                                    <matchType>ignoreCase</matchType>
-                                                </tag>
-                                            </tags>
-                                        </tagClass>
-                                        <tagClass>
-                                            <displayName>Noted Bugs</displayName>
-                                            <tag>
-                                                <matchString>fixme</matchString>
-                                                <matchType>ignoreCase</matchType>
-                                            </tag>
-                                        </tagClass>
-                                        <tagClass>
-                                            <displayName>Deprecated Items</displayName>
-                                            <tag>
-                                                <matchString>@deprecated</matchString>
-                                                <matchType>ignoreCase</matchType>
-                                            </tag>
-                                        </tagClass>
-                                    </tagClasses>
-                                </tagListOptions>
-                            </configuration>
-                        </plugin>
-                    </reportPlugins>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>attach-descriptor</id>
-                        <goals>
-                            <goal>attach-descriptor</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
             </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>clean</id>
-                        <phase>clean</phase>
-                        <goals>
-                            <goal>clean</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>package</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
-                <configuration>
-                    <aggregate>true</aggregate>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>jxr</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-eclipse-plugin</artifactId>
-                <version>2.9</version>
-                <configuration>
-                    <additionalProjectnatures>
-                        <projectnature>
-                            org.eclipse.jdt.groovy.core.groovyNature
-                        </projectnature>
-                    </additionalProjectnatures>
-                </configuration>
             </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <!-- balanced,reversealphabetical,random,hourly,failedfirst,filesystem (default) -->
-                    <!--<runOrder>alphabetical</runOrder>-->
-                    <!--<threadCount>5</threadCount>-->
-                    <!--<forkMode>perClass</forkMode>-->
-                    <!--<parallel>classes</parallel>-->
-                    <argLine>${surefire.jvm.args}</argLine>
-                    <failIfNoTests>false</failIfNoTests>
-                    <includes>
-                        <include>**/*Test.java</include>
-                        <include>**/*Specification.java</include>
-                    </includes>
-                    <systemProperties/>
-                </configuration>
-            </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <configuration>
-                    <skip>${pmd.skip}</skip>
-                    <targetJdk>${maven.compiler.source}</targetJdk>
-                    <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
-                    <!--<minimumTokens>100</minimumTokens>-->
-                    <rulesets>
-                        <ruleset>${maven-pmd-plugin.configLocation}</ruleset>
-                    </rulesets>
-                    <failOnViolation>false</failOnViolation>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>check</goal>
-                            <goal>cpd-check</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
-
-            <plugin>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>maven-jetty-plugin</artifactId>
-                <version>6.1.10</version>
-                <configuration>
-                    <scanIntervalSeconds>5</scanIntervalSeconds>
-                    <stopKey>foo</stopKey>
-                    <stopPort>9999</stopPort>
-                </configuration>
-            </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>run-checkstyle</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>checkstyle</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
-
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
@@ -618,32 +558,112 @@
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <inherited>true</inherited>
+                <configuration>
+                    <!-- balanced,reversealphabetical,random,hourly,failedfirst,filesystem (default) -->
+                    <!--<runOrder>alphabetical</runOrder>-->
+                    <!--<threadCount>5</threadCount>-->
+                    <!--<forkMode>perClass</forkMode>-->
+                    <!--<parallel>classes</parallel>-->
+                    <argLine>${surefire.jvm.args}</argLine>
+                    <failIfNoTests>false</failIfNoTests>
+                    <includes>
+                        <include>**/*Test.java</include>
+                        <include>**/*Specification.java</include>
+                    </includes>
+                    <systemProperties/>
+                </configuration>
             </plugin>
-
+            <plugin>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>${plugin.site.version}</version>
+            </plugin>
         </plugins>
     </build>
 
     <dependencies>
-
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>${logback.version}</version>
+            <groupId>net.sourceforge.cobertura</groupId>
+            <artifactId>cobertura-runtime</artifactId>
+            <version>${cobertura.version}</version>
+            <scope>provided</scope>
+            <type>pom</type>
         </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-
     </dependencies>
 
     <profiles>
+        <profile>
+            <id>cobertura</id>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>cobertura-maven-plugin</artifactId>
+                            <version>${plugin.cobertura.version}</version>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>cobertura-maven-plugin</artifactId>
+                        <version>${plugin.cobertura.version}</version>
+                        <inherited>true</inherited>
+                        <configuration>
+                            <skip>${cobertura.skip}</skip>
+                            <forceMojoExecution>${cobertura.skip}</forceMojoExecution>
+                            <maxmem>1024m</maxmem>
+                            <formats>
+                                <format>html</format>
+                                <format>xml</format>
+                            </formats>
+                            <check>
+                                <haltOnFailure>false</haltOnFailure>
+                                <!-- Per-class thresholds -->
+                                <lineRate>70</lineRate>
+                                <branchRate>70</branchRate>
+                                <!-- POSSIBLE RESTRICTIONS FOR COVERAGE -->
+                                <!-- Project-wide thresholds -->
+                                <totalLineRate>90</totalLineRate>
+                                <totalBranchRate>90</totalBranchRate>
+                                <regexes>
+                                    <regex>
+                                        <pattern>${cobertura.base.package}.*</pattern>
+                                        <branchRate>0</branchRate>
+                                        <lineRate>0</lineRate>
+                                    </regex>
+                                </regexes>
+                            </check>
+                            <instrumentation>
+                                <includes>
+                                    <include>**/*.class</include>
+                                </includes>
+                                <excludes>
+                                    <!-- ignore model classes...modify as needed -->
+                                    <exclude>**/model/*.class</exclude>
+                                </excludes>
+                            </instrumentation>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>instrument-code</id>
+                                <phase>process-classes</phase>
+                                <goals>
+                                    <goal>instrument</goal>
+                                </goals>
+                                <configuration>
+                                    <attach>true</attach>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <profile>
             <id>jrebel</id>
             <build>
