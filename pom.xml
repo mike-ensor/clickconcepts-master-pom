@@ -13,8 +13,8 @@
         <connection>scm:git:ssh://${repository.domain}/${repository.user}/${repository.name}.git</connection>
         <url>https://${repository.domain}/${repository.user}/${repository.name}</url>
         <developerConnection>scm:git:ssh://${repository.domain}/${repository.user}/${repository.name}.git</developerConnection>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <distributionManagement>
         <repository>
@@ -627,7 +627,7 @@
                         <include>**/*Test.java</include>
                         <include>**/*Specification.java</include>
                     </includes>
-                    <systemProperties />
+                    <systemProperties/>
                 </configuration>
             </plugin>
             <plugin>
@@ -660,23 +660,6 @@
             </activation>
             <build>
                 <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                        <version>${plugin.compiler.version}</version>
-                        <inherited>true</inherited>
-                        <configuration>
-                            <debug>false</debug>
-                            <verbose>true</verbose>
-                            <fork>true</fork>
-                            <debug>false</debug>
-                            <!-- Set above but overriden in settings.xml file -->
-                            <source>${maven.compiler.source}</source>
-                            <target>${maven.compiler.target}</target>
-                            <meminitial>128m</meminitial>
-                            <maxmem>512m</maxmem>
-                        </configuration>
-                    </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-enforcer-plugin</artifactId>
