@@ -13,8 +13,8 @@
         <connection>scm:git:ssh://${repository.domain}/${repository.user}/${repository.name}.git</connection>
         <url>https://${repository.domain}/${repository.user}/${repository.name}</url>
         <developerConnection>scm:git:ssh://${repository.domain}/${repository.user}/${repository.name}.git</developerConnection>
-      <tag>master-site-pom-0.01</tag>
-  </scm>
+        <tag>master-site-pom-0.01</tag>
+    </scm>
 
     <distributionManagement>
         <repository>
@@ -60,7 +60,7 @@
     <properties>
         <site.url>file://${env.HOME}/sitedocs/${project.artifactId}</site.url>
         <repository.domain>github.com</repository.domain>
-        <repository.user>mikeensor</repository.user>
+        <repository.user>mike-ensor</repository.user>
         <repository.name>clickconcepts-master-pom</repository.name>
 
         <!-- encoding of project resources -->
@@ -627,7 +627,7 @@
                         <include>**/*Test.java</include>
                         <include>**/*Specification.java</include>
                     </includes>
-                    <systemProperties />
+                    <systemProperties/>
                 </configuration>
             </plugin>
             <plugin>
