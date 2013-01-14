@@ -9,7 +9,7 @@
     <name>${project.artifactId}</name>
     <description>This is a master pom that contains Site documentation</description>
 
-    <scm>
+    <scm><!-- git@github.com:mike-ensor/clickconcepts-master-pom.git -->
         <connection>scm:git:ssh://${repository.domain}/${repository.user}/${repository.name}.git</connection>
         <url>https://${repository.domain}/${repository.user}/${repository.name}</url>
         <developerConnection>scm:git:ssh://${repository.domain}/${repository.user}/${repository.name}.git</developerConnection>
@@ -60,7 +60,7 @@
         <site.url>file://${env.HOME}/sitedocs/${project.artifactId}</site.url>
         <repository.domain>github.com</repository.domain>
         <repository.user>mikeensor</repository.user>
-        <repository.name>${project.artifactId}</repository.name>
+        <repository.name>clickconcepts-master-pom</repository.name>
 
         <!-- encoding of project resources -->
         <maven.compiler.source>1.7</maven.compiler.source>
