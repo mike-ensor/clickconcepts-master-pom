@@ -5,6 +5,9 @@
     <artifactId>master-site-pom</artifactId>
     <version>0.14-SNAPSHOT</version>
     <packaging>pom</packaging>
+    <!--
+    NOTE: To release = mvn -Pgpg release:prepare release:perform -Darguments=-Dgpg.passphrase=########
+    -->
 
     <name>${project.artifactId}</name>
     <description>This is a master pom that contains Site documentation</description>
@@ -630,7 +633,7 @@
                         <include>**/*Test.java</include>
                         <include>**/*Specification.java</include>
                     </includes>
-                    <systemProperties />
+                    <systemProperties/>
                 </configuration>
             </plugin>
             <plugin>
