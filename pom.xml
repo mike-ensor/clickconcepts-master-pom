@@ -11,6 +11,7 @@
     2. Go to https://oss.sonatype.org/index.html#welcome
     3. Search "Staging" repositories
     4. Close staging repository with a description
+    5. Click on the closed repo, click on "Release"
 
     ** See: https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide#SonatypeOSSMavenRepositoryUsageGuide-7a.DeploySnapshotsandStageReleaseswithMaven
     -->
