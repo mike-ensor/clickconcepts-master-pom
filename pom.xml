@@ -384,6 +384,9 @@
                     <artifactId>maven-release-plugin</artifactId>
                     <version>${plugin.release.version}</version>
                     <inherited>true</inherited>
+                    <configuration>
+                        <releaseProfiles>gpg</releaseProfiles>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
