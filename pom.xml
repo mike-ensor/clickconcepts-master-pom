@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.clickconcepts.project</groupId>
     <artifactId>master-site-pom</artifactId>
-    <version>0.09-SNAPSHOT</version>
+    <version>0.09</version>
     <packaging>pom</packaging>
 
     <name>${project.artifactId}</name>
@@ -13,7 +13,7 @@
         <connection>scm:git:ssh://${repository.domain}/${repository.user}/${repository.name}.git</connection>
         <url>https://${repository.domain}/${repository.user}/${repository.name}</url>
         <developerConnection>scm:git:ssh://${repository.domain}/${repository.user}/${repository.name}.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>master-site-pom-0.09</tag>
     </scm>
 
     <distributionManagement>
