@@ -87,6 +87,7 @@
         <plugin.clean.version>2.5</plugin.clean.version>
         <plugin.changelog.version>2.2</plugin.changelog.version>
         <plugin.cobertura.version>2.5.2</plugin.cobertura.version>
+        <plugin.codenarc.version>0.18-1</plugin.codenarc.version>
         <plugin.compiler.version>3.0</plugin.compiler.version>
         <plugin.dependency.version>2.6</plugin.dependency.version>
         <plugin.deploy.version>2.7</plugin.deploy.version>
@@ -121,6 +122,8 @@
 
         <checkstyle.skip>false</checkstyle.skip>
         <cobertura.skip>false</cobertura.skip>
+        <!-- Codenarc turned off by default -->
+        <codenarc.skip>true</codenarc.skip>
         <findbugs.skip>false</findbugs.skip>
         <javadocs.skip>false</javadocs.skip>
         <pmd.skip>false</pmd.skip>
@@ -292,6 +295,16 @@
                             </goals>
                         </execution>
                     </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>codenarc-maven-plugin</artifactId>
+                    <version>${plugin.codenarc.version}</version>
+                    <configuration>
+                        <groovyVersion>${groovy.version}</groovyVersion>
+                        <skip>${codenarc.skip}</skip>
+                        <codeNarcVersion>0.18</codeNarcVersion>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -469,8 +482,20 @@
                                 <artifactId>maven-jxr-plugin</artifactId>
                             </plugin>
                             <plugin>
+                                <groupId>org.codehaus.mojo</groupId>
+                                <artifactId>codenarc-maven-plugin</artifactId>
+                            </plugin>
+                            <plugin>
                                 <groupId>org.apache.maven.plugins</groupId>
                                 <artifactId>maven-checkstyle-plugin</artifactId>
+                                <!-- NOTE: This is a duplication of the configuration on the Checkstyle plugin  -->
+                                <configuration>
+                                    <skip>${checkstyle.skip}</skip>
+                                    <configLocation>${maven-checkstyle-plugin.configLocation}</configLocation>
+                                    <failsOnError>false</failsOnError>
+                                    <enableRulesSummary>true</enableRulesSummary>
+                                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                                </configuration>
                                 <!-- TODO: Why are there two checkstyle links, if this is removed, none are displayed, otherwise two -->
                             </plugin>
                             <plugin>
