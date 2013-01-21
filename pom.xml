@@ -6,7 +6,13 @@
     <version>0.14-SNAPSHOT</version>
     <packaging>pom</packaging>
     <!--
-    NOTE: To release = mvn -Pgpg release:prepare release:perform -Darguments=-Dgpg.passphrase=########
+    NOTE: To release to maven central
+    1. mvn -Pgpg release:prepare release:perform -Darguments=-Dgpg.passphrase=########
+    2. Go to https://oss.sonatype.org/index.html#welcome
+    3. Search "Staging" repositories
+    4. Close staging repository with a description
+
+    ** See: https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide#SonatypeOSSMavenRepositoryUsageGuide-7a.DeploySnapshotsandStageReleaseswithMaven
     -->
 
     <name>${project.artifactId}</name>
