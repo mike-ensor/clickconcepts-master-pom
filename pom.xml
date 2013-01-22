@@ -26,12 +26,22 @@
         <tag>HEAD</tag>
     </scm>
 
+    <prerequisites>
+        <!-- Would prefer 3.0.4, but 3.0.3 will work -->
+        <maven>3.0.3</maven>
+    </prerequisites>
+
     <distributionManagement>
         <repository>
             <id>nexus-releases</id>
             <name>Nexus Release Repository</name>
             <url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
+        <snapshotRepository>
+            <id>sonatype-nexus-snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
         <!--<site>-->
         <site>
             <id>site-docs</id>
@@ -117,8 +127,21 @@
         <maven-pmd-plugin.configLocation>${project.basedir}/code-analysis/pmd.xml</maven-pmd-plugin.configLocation>
         <surefire.jvm.args>-Xms256m -Xmx512m -XX:MaxPermSize=512m</surefire.jvm.args>
 
-        <changelog.fileUri>${project.scm.url}/tree/master/%FILE%</changelog.fileUri>
+        <!-- GITHUB Changelog Parameters -->
+        <changelog.github.fileUri>${project.scm.url}/tree/master/%FILE%</changelog.github.fileUri>
+        <changelog.revision.github.fileUri>${project.scm.url}/commit</changelog.revision.github.fileUri>
+
+        <!-- BitBucket Changelog Parameters -->
+        <changelog.bitbucket.fileUri>${project.scm.url}/src/%REV%/%FILE%?at=master</changelog.bitbucket.fileUri>
+        <changelog.revision.bitbucket.fileUri>${project.scm.url}/commits/%REV%</changelog.revision.bitbucket.fileUri>
+
+        <!-- NOTE: Choose the changelog File Uri for your project. By default, this will fail if not setup -->
+        <changelog.fileUri/>
+        <changelog.revision.fileUri/>
+
         <cobertura.base.package>com.clickconcepts</cobertura.base.package>
+        <!-- Needed for Code Narc only -->
+        <groovy.version>2.0.6</groovy.version>
 
         <checkstyle.skip>false</checkstyle.skip>
         <cobertura.skip>false</cobertura.skip>
@@ -127,11 +150,13 @@
         <findbugs.skip>false</findbugs.skip>
         <javadocs.skip>false</javadocs.skip>
         <pmd.skip>false</pmd.skip>
+        <versions.skip>false</versions.skip>
 
+        <plugin.changes.version>2.8</plugin.changes.version>
     </properties>
 
     <issueManagement>
-        <url>https://mensor.github.com/${repository.user}/${repository.name}/issues</url>
+        <url>https://www.github.com/${repository.user}/${repository.name}/issues</url>
         <system>Github Issues</system>
     </issueManagement>
 
@@ -158,6 +183,7 @@
                     <version>${plugin.taglist.version}</version>
                     <inherited>true</inherited>
                     <configuration>
+                        <!-- NOTE: This only works for Java resources (maybe someone will add polyglot source destinations) -->
                         <aggregate>true</aggregate>
                         <encoding>${project.build.sourceEncoding}</encoding>
                         <sourceFileLocale>en</sourceFileLocale>
@@ -292,6 +318,7 @@
                             <phase>process-resources</phase>
                             <goals>
                                 <goal>jxr</goal>
+                                <goal>test-jxr</goal>
                             </goals>
                         </execution>
                     </executions>
@@ -340,6 +367,10 @@
                         <rulesets>
                             <ruleset>${maven-pmd-plugin.configLocation}</ruleset>
                         </rulesets>
+                        <linkXRef>true</linkXRef>
+                        <!-- Required to properly link JXR -->
+                        <xrefLocation>${project.reporting.outputDirectory}/xref</xrefLocation>
+                        <xrefTestLocation>${project.reporting.outputDirectory}/xref</xrefTestLocation>
                         <failOnViolation>false</failOnViolation>
                     </configuration>
                     <executions>
@@ -394,6 +425,9 @@
                         <skip>${findbugs.skip}</skip>
                         <maxHeap>512</maxHeap>
                         <xmlOutput>true</xmlOutput>
+                        <includeTests>true</includeTests>
+                        <effort>max</effort>
+                        <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -445,14 +479,50 @@
                         <reportPlugins>
                             <plugin>
                                 <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-changes-plugin</artifactId>
+                                <version>${plugin.changes.version}</version>
+                                <reportSets>
+                                    <reportSet>
+                                        <reports>
+                                            <report>changes-report</report>
+                                            <report>jira-report</report>
+                                        </reports>
+                                    </reportSet>
+                                </reportSets>
+                            </plugin>
+                            <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
                                 <artifactId>maven-changelog-plugin</artifactId>
-                                <configuration>
-                                    <type>range</type>
-                                    <range>10</range>
-                                    <displayFileDetailUrl>${changelog.fileUri}</displayFileDetailUrl>
-                                    <headingDateFormat>MM-dd-yyyy</headingDateFormat>
-                                    <outputEncoding>${project.reporting.outputEncoding}</outputEncoding>
-                                </configuration>
+                                <reportSets>
+                                    <reportSet>
+                                        <id>changelog</id>
+                                        <configuration>
+                                            <displayFileRevDetailUrl>${changelog.fileUri}</displayFileRevDetailUrl>
+                                            <displayChangeSetDetailUrl>${changelog.revision.fileUri}</displayChangeSetDetailUrl>
+                                            <headingDateFormat>MM-dd-yyyy</headingDateFormat>
+                                            <outputEncoding>${project.reporting.outputEncoding}</outputEncoding>
+                                            <type>range</type>
+                                            <range>30</range>
+                                        </configuration>
+                                        <reports>
+                                            <report>changelog</report>
+                                        </reports>
+                                    </reportSet>
+                                    <reportSet>
+                                        <id>activty</id>
+                                        <configuration>
+                                            <displayFileDetailUrl>#</displayFileDetailUrl>
+                                            <headingDateFormat>MM-dd-yyyy</headingDateFormat>
+                                            <outputEncoding>${project.reporting.outputEncoding}</outputEncoding>
+                                            <type>range</type>
+                                            <range>30</range>
+                                        </configuration>
+                                        <reports>
+                                            <report>dev-activity</report>
+                                            <report>file-activity</report>
+                                        </reports>
+                                    </reportSet>
+                                </reportSets>
                             </plugin>
                             <plugin>
                                 <groupId>org.apache.maven.plugins</groupId>
@@ -467,7 +537,9 @@
                                 scm, plugin-management, modules, summary -->
                                 <reports>
                                     <report>summary</report>
+                                    <report>cim</report>
                                     <report>index</report>
+                                    <report>license</report>
                                     <report>project-team</report>
                                     <report>dependencies</report>
                                     <report>dependency-convergence</report>
@@ -476,14 +548,6 @@
                                     <report>modules</report>
                                     <report>plugins</report>
                                 </reports>
-                            </plugin>
-                            <plugin>
-                                <groupId>org.apache.maven.plugins</groupId>
-                                <artifactId>maven-jxr-plugin</artifactId>
-                            </plugin>
-                            <plugin>
-                                <groupId>org.codehaus.mojo</groupId>
-                                <artifactId>codenarc-maven-plugin</artifactId>
                             </plugin>
                             <plugin>
                                 <groupId>org.apache.maven.plugins</groupId>
@@ -496,7 +560,28 @@
                                     <enableRulesSummary>true</enableRulesSummary>
                                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
                                 </configuration>
+                                <reportSets>
+                                    <reportSet>
+                                        <reports>
+                                            <!-- This is for avoiding raport duplication (a bug in plugin or sth) -->
+                                            <report>checkstyle</report>
+                                        </reports>
+                                    </reportSet>
+                                </reportSets>
                                 <!-- TODO: Why are there two checkstyle links, if this is removed, none are displayed, otherwise two -->
+                            </plugin>
+                            <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-jxr-plugin</artifactId>
+                            </plugin>
+                            <plugin>
+                                <groupId>org.codehaus.mojo</groupId>
+                                <artifactId>codenarc-maven-plugin</artifactId>
+                                <configuration>
+                                    <groovyVersion>${groovy.version}</groovyVersion>
+                                    <skip>${codenarc.skip}</skip>
+                                    <codeNarcVersion>0.18</codeNarcVersion>
+                                </configuration>
                             </plugin>
                             <plugin>
                                 <groupId>org.apache.maven.plugins</groupId>
@@ -509,6 +594,10 @@
                                     <rulesets>
                                         <ruleset>${maven-pmd-plugin.configLocation}</ruleset>
                                     </rulesets>
+                                    <linkXRef>true</linkXRef>
+                                    <!-- Required to properly link JXR -->
+                                    <xrefLocation>${project.reporting.outputDirectory}/xref</xrefLocation>
+                                    <xrefTestLocation>${project.reporting.outputDirectory}/xref</xrefTestLocation>
                                     <failOnViolation>false</failOnViolation>
                                 </configuration>
                             </plugin>
@@ -528,6 +617,9 @@
                             <plugin>
                                 <groupId>org.codehaus.mojo</groupId>
                                 <artifactId>versions-maven-plugin</artifactId>
+                                <configuration>
+                                    <skip>${versions.skip}</skip>
+                                </configuration>
                                 <reportSets>
                                     <reportSet>
                                         <reports>
@@ -549,9 +641,14 @@
                             <plugin>
                                 <groupId>org.codehaus.mojo</groupId>
                                 <artifactId>findbugs-maven-plugin</artifactId>
+                                <!-- NOTE: This is a duplication since confguration is not inherited from PluginManagement -->
                                 <configuration>
                                     <skip>${findbugs.skip}</skip>
-                                    <xmlOutput>true</xmlOutput>
+                                    <maxHeap>512</maxHeap>
+                                    <includeTests>true</includeTests>
+                                    <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
+                                    <xrefTestLocation>xref-test</xrefTestLocation>
+                                    <xrefLocation>xref</xrefLocation>
                                 </configuration>
                             </plugin>
                             <plugin>
@@ -630,6 +727,14 @@
                         </goals>
                         <configuration>
                             <rules>
+                                <requireProperty>
+                                    <property>changelog.fileUri</property>
+                                    <message>Please set the changelog fileURI to BitBucket, GitHub or Other</message>
+                                </requireProperty>
+                                <requireProperty>
+                                    <property>changelog.revision.fileUri</property>
+                                    <message>Please set the Revisions changelog fileURI to BitBucket, GitHub or Other</message>
+                                </requireProperty>
                                 <requireProperty>
                                     <property>site.url</property>
                                     <!-- Intention is to show off the enforcer plugin make sure that there is a specific property set -->
