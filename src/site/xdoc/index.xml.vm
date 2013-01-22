@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+
+    <properties>
+        <title>Parent POM for projects</title>
+        <author email="mike@clickconcepts.com">Mike!</author>
+    </properties>
+
+    <!-- Optional HEAD element, which is copied as is into the XHTML <head> element -->
+    <head>
+        <title>${title}</title>
+        <meta content="Documentation site for Parent POM" name="description"/>
+    </head>
+
+    <body>
+
+        <!-- The body of the document contains a number of sections -->
+        <section name="section 1">
+
+            <h1>Master/Parent POM for Click Concepts</h1>
+            <p>This is a paragraph inside of section 1</p>
+            <!-- in addition to XHTML, any number of subsections can be within a section -->
+            <subsection name="Plugins">
+                <p>Plugins and versions are all up-to-date and are listed in the Parent POM</p>
+                <h3>Code Quality Plugins</h3>
+                <ul>
+                    <li>PMD/CPD</li>
+                    <li>Checkstyle</li>
+                    <li>CodeNarc</li>
+                    <li>FindBugs</li>
+                </ul>
+            </subsection>
+        </section>
+
+        <section name="other section">
+            <p>This is how you run site documentation</p>
+            <source>
+                mvn clean verify site:run
+            </source>
+        </section>
+    </body>
+</document>
