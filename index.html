@@ -271,29 +271,29 @@
 
     
 
-        <!-- The body of the document contains a number of sections -->
-        <div class="section"><h2>section 1<a name="section_1"></a></h2>
-
-            <h1>Master/Parent POM for Click Concepts</h1>
-            <p>This is a paragraph inside of section 1</p>
-            <!-- in addition to XHTML, any number of subsections can be within a section -->
-            <div class="section"><h3>Plugins<a name="Plugins"></a></h3>
-                <p>Plugins and versions are all up-to-date and are listed in the Parent POM</p>
-                </div><div class="section"><h3>Code Quality Plugins<a name="Code_Quality_Plugins"></a></h3>
-                <ul>
-                    <li>PMD/CPD</li>
-                    <li>Checkstyle</li>
-                    <li>CodeNarc</li>
-                    <li>FindBugs</li>
-                </ul>
-            </div>
+        <h1>Master/Parent POM for Click Concepts</h1>
+        <p>This Master/Parent POM is intended to provide functionality for common Plugins and Site documentation.</p>
+        <!-- in addition to XHTML, any number of subsections can be within a section -->
+        <div class="section"><h3>Plugins<a name="Plugins"></a></h3>
+            <p>Plugins and versions are all up-to-date and are listed in the Parent POM</p>
+            </div><div class="section"><h3>Code Quality Plugins<a name="Code_Quality_Plugins"></a></h3>
+            <ul>
+                <li>PMD/CPD</li>
+                <li>Checkstyle</li>
+                <li>CodeNarc</li>
+                <li>FindBugs</li>
+            </ul>
         </div>
 
-        <div class="section"><h2>other section<a name="other_section"></a></h2>
-            <p>This is how you run site documentation</p>
-            <div class="source"><pre class="prettyprint linenums">
-                mvn clean verify site:run
-            </pre></div>
+        <div class="section"><h3>Site Documentation<a name="Site_Documentation"></a></h3>
+            <p>
+                Add something here about site documentation
+            </p>
+        </div>
+
+        <div class="section"><h2>Run<a name="Run"></a></h2>
+            <p>Generate your site documentation</p>
+            <div class="source"><pre class="prettyprint linenums">mvn clean verify site:stage</pre></div>
         </div>
     
 
