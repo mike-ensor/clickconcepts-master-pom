@@ -734,12 +734,14 @@
                                 <requireProperty>
                                     <property>changelog.fileUri</property>
                                     <regex>.*\w.*</regex>
-                                    <message>Please set the changelog fileURI to BitBucket, GitHub or Other</message>
+                                    <message>Please set the property [changelog.fileUri] to BitBucket (changelog.bitbucket.fileUri), GitHub (changelog.github.fileUri) or Other (make your own)</message>
+                                    <regexMessage>Please set the property [changelog.fileUri] to BitBucket (changelog.bitbucket.fileUri), GitHub (changelog.github.fileUri) or Other (make your own)</regexMessage>
                                 </requireProperty>
                                 <requireProperty>
                                     <property>changelog.revision.fileUri</property>
                                     <regex>.*\w.*</regex>
-                                    <message>Please set the Revisions changelog fileURI to BitBucket, GitHub or Other</message>
+                                    <message>Please set the property [changelog.revision.fileUri] to BitBucket (changelog.revision.bitbucket.fileUri), GitHub (changelog.revision.github.fileUri) or Other (make your own)</message>
+                                    <regexMessage>Please set the property [changelog.revision.fileUri] to BitBucket (changelog.revision.bitbucket.fileUri), GitHub (changelog.revision.github.fileUri) or Other (make your own)</regexMessage>
                                 </requireProperty>
                                 <requireProperty>
                                     <property>site.url</property>
@@ -751,11 +753,13 @@
                                     <property>repository.domain</property>
                                     <regex>.*\w.*</regex>
                                     <message>Required parameter repository.domain is missing in the Project's Properties (Typical values [github.com or bitbucket.org]</message>
+                                    <regexMessage>Required parameter repository.domain is missing in the Project's Properties (Typical values [github.com or bitbucket.org]</regexMessage>
                                 </requireProperty>
                                 <requireProperty>
                                     <property>repository.name</property>
                                     <regex>.*\w.*</regex>
                                     <message>Required parameter repository.user is missing in the Project's Properties</message>
+                                    <regexMessage>Required parameter repository.user is missing in the Project's Properties</regexMessage>
                                 </requireProperty>
                             </rules>
                             <fail>true</fail>
