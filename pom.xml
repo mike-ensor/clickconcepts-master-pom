@@ -6,8 +6,11 @@
     <version>0.14-SNAPSHOT</version>
     <packaging>pom</packaging>
     <!--
+    NOTE: Snapshot release
+    1. mvn -Pgpg deploy -Denforcer.skip=true
+
     NOTE: To release to maven central
-    1. mvn -Pgpg release:prepare release:perform -Darguments=-Dgpg.passphrase=########
+    1. mvn -Pgpg release:prepare release:perform -Darguments=-Dgpg.passphrase=######## -Denforcer.skip=true
     2. Go to https://oss.sonatype.org/index.html#welcome
     3. Search "Staging" repositories
     4. Close staging repository with a description
@@ -485,6 +488,7 @@
                                     <reportSet>
                                         <reports>
                                             <report>changes-report</report>
+                                            <!-- Since this is not accessable in the child, make this report run even if nothing there -->
                                             <report>jira-report</report>
                                         </reports>
                                     </reportSet>
@@ -729,23 +733,28 @@
                             <rules>
                                 <requireProperty>
                                     <property>changelog.fileUri</property>
+                                    <regex>.*\w.*</regex>
                                     <message>Please set the changelog fileURI to BitBucket, GitHub or Other</message>
                                 </requireProperty>
                                 <requireProperty>
                                     <property>changelog.revision.fileUri</property>
+                                    <regex>.*\w.*</regex>
                                     <message>Please set the Revisions changelog fileURI to BitBucket, GitHub or Other</message>
                                 </requireProperty>
                                 <requireProperty>
                                     <property>site.url</property>
+                                    <regex>.*\w.*</regex>
                                     <!-- Intention is to show off the enforcer plugin make sure that there is a specific property set -->
                                     <message>Required site.url parameter missing</message>
                                 </requireProperty>
                                 <requireProperty>
                                     <property>repository.domain</property>
+                                    <regex>.*\w.*</regex>
                                     <message>Required parameter repository.domain is missing in the Project's Properties (Typical values [github.com or bitbucket.org]</message>
                                 </requireProperty>
                                 <requireProperty>
                                     <property>repository.name</property>
+                                    <regex>.*\w.*</regex>
                                     <message>Required parameter repository.user is missing in the Project's Properties</message>
                                 </requireProperty>
                             </rules>
