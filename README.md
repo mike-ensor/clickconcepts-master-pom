@@ -5,3 +5,5 @@ What is included
 * Checkstyle
 * PMD
 * Findbugs
+
+:tophat:
