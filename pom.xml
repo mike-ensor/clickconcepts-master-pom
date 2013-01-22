@@ -10,7 +10,7 @@
     1. mvn -Pgpg deploy -Denforcer.skip=true
 
     NOTE: To release to maven central
-    1. mvn -Pgpg release:prepare release:perform -Darguments=-Dgpg.passphrase=######## -Denforcer.skip=true
+    1. mvn -Pgpg release:prepare release:perform -Darguments="-Dgpg.passphrase=######## -Denforcer.skip=true" -Denforcer.skip=true
     2. Go to https://oss.sonatype.org/index.html#welcome
     3. Search "Staging" repositories
     4. Close staging repository with a description
@@ -139,8 +139,8 @@
         <changelog.revision.bitbucket.fileUri>${project.scm.url}/commits/%REV%</changelog.revision.bitbucket.fileUri>
 
         <!-- NOTE: Choose the changelog File Uri for your project. By default, this will fail if not setup -->
-        <changelog.fileUri />
-        <changelog.revision.fileUri />
+        <changelog.fileUri/>
+        <changelog.revision.fileUri/>
 
         <cobertura.base.package>com.clickconcepts</cobertura.base.package>
         <!-- Needed for Code Narc only -->
@@ -783,7 +783,7 @@
                         <include>**/*Test.java</include>
                         <include>**/*Specification.java</include>
                     </includes>
-                    <systemProperties />
+                    <systemProperties/>
                 </configuration>
             </plugin>
             <plugin>
