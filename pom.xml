@@ -85,22 +85,25 @@
         <!--    SITE DOC PROPERTIES    -->
         <!-- ========================  -->
 
-        <!-- @OVERRIDE - Expected to be a "FILE" URI, project.artifactId will be appended automatically -->
+        <!-- Overwrite Expected to be a "FILE" URI, Used for site:stage-deploy -->
         <site-docs.url>/${env.HOME}/sitedocs/${project.artifactId}</site-docs.url>
-        <!-- Best practice is to override this property in your settings.xml file -->
-        <site-docs.siteMainDirectory>${project.build.outputDirectory}/scmpublish</site-docs.siteMainDirectory>
+        <!-- Best practice is to override this property in your settings.xml file; used for directory to hold cloned repository -->
+        <scmPublish.checkoutDirectory>${project.build.directory}/scmpublish</scmPublish.checkoutDirectory>
         <!-- @OVERRIDE this property per each project -->
         <repository.domain>github.com</repository.domain>
         <!-- @OVERRIDE this property per each project -->
         <repository.user>mike-ensor</repository.user>
         <!-- @OVERRIDE this property per each project -->
         <repository.name>clickconcepts-master-pom</repository.name>
+        <!-- Overwrite this property if you are using BitBucket to add in a level of folders for multiple projects -->
+        <site-docs.outputDirectory>${project.reporting.outputDirectory}</site-docs.outputDirectory>
 
         <!-- @OVERRIDE as needed  -->
         <scm-publish.scmBranch>gh-pages</scm-publish.scmBranch>
         <!-- @OVERRIDE as needed  -->
         <scm-publish.pubScmUrl>scm:git:git@github.com:mike-ensor/clickconcepts-master-pom.git</scm-publish.pubScmUrl>
-        <site-docs.siteMainDirectory>${project.reporting.outputDirectory}</site-docs.siteMainDirectory>
+        <!-- @OVERRIDE; This is where the content is located -->
+        <scmPublish.contentFolder>${project.reporting.outputDirectory}</scmPublish.contentFolder>
 
         <!-- ========================  -->
         <!--    PROJECT PROPERTIES     -->
@@ -234,11 +237,12 @@
                     <version>${plugin.scm-publish.version}</version>
                     <inherited>true</inherited>
                     <configuration>
-                        <content>${project.reporting.outputDirectory}</content>
-                        <checkoutDirectory>${site-docs.siteMainDirectory}</checkoutDirectory>
+                        <checkoutDirectory>${scmPublish.checkoutDirectory}</checkoutDirectory>
                         <checkinComment>Publishing Site Docs for ${project.artifactId}:${project.version}</checkinComment>
-                        <scmBranch>${scm-publish.scmBranch}</scmBranch>
+                        <content>${scmPublish.contentFolder}</content>
+                        <tryUpdate>true</tryUpdate>
                         <pubScmUrl>${scm-publish.pubScmUrl}</pubScmUrl>
+                        <scmBranch>${scm-publish.scmBranch}</scmBranch>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -542,6 +546,7 @@
                     <version>${plugin.site.version}</version>
                     <inherited>true</inherited>
                     <configuration>
+                        <outputDirectory>${site-docs.outputDirectory}</outputDirectory>
                         <stagingDirectory>${site-docs.url}</stagingDirectory>
                         <attach>true</attach>
                         <reportPlugins>
