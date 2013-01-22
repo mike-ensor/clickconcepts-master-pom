@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.clickconcepts.project</groupId>
     <artifactId>master-site-pom</artifactId>
-    <version>0.14-SNAPSHOT</version>
+    <version>0.14</version>
     <packaging>pom</packaging>
     <!--
     NOTE: Snapshot release
@@ -26,7 +26,7 @@
         <connection>scm:git:ssh://${repository.domain}/${repository.user}/${repository.name}.git</connection>
         <url>https://${repository.domain}/${repository.user}/${repository.name}</url>
         <developerConnection>scm:git:ssh://${repository.domain}/${repository.user}/${repository.name}.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>master-site-pom-0.14</tag>
     </scm>
 
     <prerequisites>
@@ -139,8 +139,8 @@
         <changelog.revision.bitbucket.fileUri>${project.scm.url}/commits/%REV%</changelog.revision.bitbucket.fileUri>
 
         <!-- NOTE: Choose the changelog File Uri for your project. By default, this will fail if not setup -->
-        <changelog.fileUri/>
-        <changelog.revision.fileUri/>
+        <changelog.fileUri />
+        <changelog.revision.fileUri />
 
         <cobertura.base.package>com.clickconcepts</cobertura.base.package>
         <!-- Needed for Code Narc only -->
@@ -783,7 +783,7 @@
                         <include>**/*Test.java</include>
                         <include>**/*Specification.java</include>
                     </includes>
-                    <systemProperties/>
+                    <systemProperties />
                 </configuration>
             </plugin>
             <plugin>
