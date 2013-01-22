@@ -1,0 +1,13 @@
+com.acquitygroup.webtest
+com.acquitygroup.webtest.cart
+com.acquitygroup.webtest.category
+com.acquitygroup.webtest.checkout
+com.acquitygroup.webtest.error
+com.acquitygroup.webtest.flow
+com.acquitygroup.webtest.header
+com.acquitygroup.webtest.home
+com.acquitygroup.webtest.model
+com.acquitygroup.webtest.myaccount
+com.acquitygroup.webtest.productdetail
+com.acquitygroup.webtest.search
+com.acquitygroup.webtest.util
