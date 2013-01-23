@@ -17,6 +17,15 @@
     5. Click on the closed repo, click on "Release"
 
     ** See: https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide#SonatypeOSSMavenRepositoryUsageGuide-7a.DeploySnapshotsandStageReleaseswithMaven
+
+    NOTE: To release documentation to GitHub: (GitHub uses gh-pages branch, so no need to alter directory structure like BitBucket. NOTE: "install" profile is for this project only)
+    1. mvn clean site:site scm-publish:publish-scm -Pinstall
+
+    NOTE: To release documentation to BitBucket
+    1. Modify <siteOutputDirectory/> to add in the project artifact ID as a folder (BitBucket has one root repository and uses folders for different projects. NOTE: "install" profile is for this project only)
+    2. mvn clean site:site scm-publish:publish-scm -Pinstall
+
+    ** See: http://maven.apache.org/plugins/maven-scm-publish-plugin/
     -->
 
     <name>${project.artifactId}</name>
@@ -30,7 +39,7 @@
     </scm>
 
     <prerequisites>
-        <!-- Would prefer 3.0.4, but 3.0.3 will work -->
+        <!-- Would prefer 3.0.4+, but 3.0.3 will work -->
         <maven>3.0.3</maven>
     </prerequisites>
 
@@ -47,7 +56,7 @@
         </snapshotRepository>
         <site>
             <id>site-docs</id>
-            <url>file://${site-docs.url}/${project.artifactId}</url>
+            <url>file://${site-docs.url}</url>
         </site>
     </distributionManagement>
 
@@ -95,15 +104,19 @@
         <repository.user>mike-ensor</repository.user>
         <!-- @OVERRIDE this property per each project -->
         <repository.name>clickconcepts-master-pom</repository.name>
-        <!-- Overwrite this property if you are using BitBucket to add in a level of folders for multiple projects -->
-        <site-docs.outputDirectory>${project.reporting.outputDirectory}</site-docs.outputDirectory>
 
-        <!-- @OVERRIDE as needed  -->
+        <!-- =============================================  -->
+        <!--    BITBUCKET SPECIFIC DOCUMENTATION CHANGES    -->
+        <!-- =============================================  -->
+        <!-- Overwrite the default Site documentation folder if you are using BitBucket to add in a folder (artifactId) for multiple projects hosted on the same site -->
+        <!-- see: https://confluence.atlassian.com/display/BITBUCKET/Publishing+a+Website+on+Bitbucket -->
+        <!-- ::Example:: -->
+        <!--<siteOutputDirectory>${project.build.directory}/site/${project.artifactId}</siteOutputDirectory>-->
+
+        <!-- @OVERRIDE [This is the branch that the web "pages" are located in. For GitHub, gh-pages; for BitBucket, master] -->
         <scm-publish.scmBranch>gh-pages</scm-publish.scmBranch>
-        <!-- @OVERRIDE as needed  -->
+        <!-- @OVERRIDE [SCM location for documentation repository]  -->
         <scm-publish.pubScmUrl>scm:git:git@github.com:mike-ensor/clickconcepts-master-pom.git</scm-publish.pubScmUrl>
-        <!-- @OVERRIDE; This is where the content is located -->
-        <scmPublish.contentFolder>${project.reporting.outputDirectory}</scmPublish.contentFolder>
 
         <!-- ========================  -->
         <!--    PROJECT PROPERTIES     -->
@@ -170,11 +183,10 @@
         <!-- Needed for Code Narc only -->
         <groovy.version>2.0.6</groovy.version>
 
-
         <!-- ==========================  -->
         <!--    CHANGE LOG PROPERTIES    -->
         <!-- ==========================  -->
-        <!-- GITHUB Changelog Parameters -->
+        <!-- GitHub Changelog Parameters -->
         <changelog.github.fileUri>${project.scm.url}/tree/master/%FILE%</changelog.github.fileUri>
         <changelog.revision.github.fileUri>${project.scm.url}/commit</changelog.revision.github.fileUri>
         <!-- BitBucket Changelog Parameters -->
@@ -182,7 +194,7 @@
         <changelog.revision.bitbucket.fileUri>${project.scm.url}/commits/%REV%</changelog.revision.bitbucket.fileUri>
         <!-- NOTE: Choose the changelog File Uri for your project. By default, this will fail if not setup -->
         <!-- example: <changelog.fileUri>${changelog.bitbucket.fileUri}</changelog.fileUri>  -->
-        <!-- ENFORCER will fail if these are not defined -->
+        <!-- @OVERRIDE ENFORCER will fail if these are not defined -->
         <changelog.fileUri/>
         <changelog.revision.fileUri/>
 
@@ -200,7 +212,6 @@
         <javadocs.skip>false</javadocs.skip>
         <pmd.skip>false</pmd.skip>
         <versions.skip>false</versions.skip>
-        <!-- skip to avoid long runs against maven central for dependency and plugin versions -->
 
     </properties>
 
@@ -239,7 +250,6 @@
                     <configuration>
                         <checkoutDirectory>${scmPublish.checkoutDirectory}</checkoutDirectory>
                         <checkinComment>Publishing Site Docs for ${project.artifactId}:${project.version}</checkinComment>
-                        <content>${scmPublish.contentFolder}</content>
                         <tryUpdate>true</tryUpdate>
                         <pubScmUrl>${scm-publish.pubScmUrl}</pubScmUrl>
                         <scmBranch>${scm-publish.scmBranch}</scmBranch>
@@ -546,8 +556,6 @@
                     <version>${plugin.site.version}</version>
                     <inherited>true</inherited>
                     <configuration>
-                        <outputDirectory>${site-docs.outputDirectory}</outputDirectory>
-                        <stagingDirectory>${site-docs.url}</stagingDirectory>
                         <attach>true</attach>
                         <reportPlugins>
                             <plugin>
@@ -857,8 +865,8 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>${plugin.site.version}</version>
             </plugin>
         </plugins>
     </build>
