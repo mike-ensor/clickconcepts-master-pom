@@ -7,11 +7,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="author" content="Mike!" />
     <meta name="Date-Revision-yyyymmdd" content="20130122" />
     <meta http-equiv="Content-Language" content="en" />
-    <title>master-site-pom - 
-        Parent POM for projects</title>
+    <title>master-site-pom - Project Dependencies</title>
     <link rel="stylesheet" href="./css/apache-maven-fluido-1.3.0.min.css" />
     <link rel="stylesheet" href="./css/site.css" />
     <link rel="stylesheet" href="./css/print.css" media="print" />
@@ -20,7 +18,7 @@
     <script type="text/javascript" src="./js/apache-maven-fluido-1.3.0.min.js"></script>
 
     
-    <!-- Optional HEAD element, which is copied as is into the XHTML <head> element --><meta content="Documentation site for Parent POM" name="description" />        </head>
+            </head>
         <body class="topBarEnabled">
           
                 
@@ -156,10 +154,12 @@
                 <ul class="nav nav-list">
                     <li class="nav-header">Documentation</li>
                                 
-      <li class="active">
+      <li>
     
-            <a href="#"><i class="none"></i>Home</a>
-          </li>
+                          <a href="index.html" title="Home">
+          <i class="none"></i>
+        Home</a>
+            </li>
                               <li class="nav-header">Reports</li>
                                                                                                                                                                                                                                             
       <li>
@@ -183,10 +183,12 @@
         Continuous Integration</a>
             </li>
                       
-      <li class="active">
+      <li>
     
-            <a href="#"><i class="none"></i>About</a>
-          </li>
+                          <a href="index.html" title="About">
+          <i class="none"></i>
+        About</a>
+            </li>
                       
       <li>
     
@@ -202,12 +204,10 @@
         Project Team</a>
             </li>
                       
-      <li>
+      <li class="active">
     
-                          <a href="dependencies.html" title="Dependencies">
-          <i class="none"></i>
-        Dependencies</a>
-            </li>
+            <a href="#"><i class="none"></i>Dependencies</a>
+          </li>
                       
       <li>
     
@@ -267,36 +267,25 @@
                 
         <div id="bodyColumn"  class="span9" >
                                   
-            
-
-    
-
-        <h1>Master/Parent POM for Click Concepts</h1>
-        <p>This Master/Parent POM is intended to provide functionality for common Plugins and Site documentation.</p>
-        <!-- in addition to XHTML, any number of subsections can be within a section -->
-        <div class="section"><h3>Plugins<a name="Plugins"></a></h3>
-            <p>Plugins and versions are all up-to-date and are listed in the Parent POM</p>
-            </div><div class="section"><h3>Code Quality Plugins<a name="Code_Quality_Plugins"></a></h3>
-            <ul>
-                <li>PMD/CPD</li>
-                <li>Checkstyle</li>
-                <li>CodeNarc</li>
-                <li>FindBugs</li>
-            </ul>
-        </div>
-
-        <div class="section"><h3>Site Documentation<a name="Site_Documentation"></a></h3>
-            <p>
-                Add something here about site documentation
-            </p>
-        </div>
-
-        <div class="section"><h2>Run<a name="Run"></a></h2>
-            <p>Generate your site documentation</p>
-            <div class="source"><pre class="prettyprint linenums">mvn clean verify site:stage</pre></div>
-        </div>
-    
-
+            <a name="Project_Dependencies"></a><div class="section"><h2>Project Dependencies<a name="Project_Dependencies"></a></h2><a name="Project_Dependencies_compile"></a><div class="section"><h3>compile<a name="compile"></a></h3><p>The following is a list of compile dependencies for this project. These dependencies are required to compile and run the application:</p><table border="0" class="table table-striped"><tr class="a"><th>GroupId</th><th>ArtifactId</th><th>Version</th><th>Type</th><th>License</th><th>Optional</th></tr><tr class="b"><td>net.sourceforge.cobertura</td><td>cobertura-runtime</td><td>1.9.4.1</td><td>pom</td><td><a class="externalLink" href="http://www.gnu.org/licenses/gpl.txt">The GNU General Public License, Version 2</a></td><td>Yes</td></tr></table></div></div><a name="Project_Transitive_Dependencies"></a><div class="section"><h2>Project Transitive Dependencies<a name="Project_Transitive_Dependencies"></a></h2><p>The following is a list of transitive dependencies for this project. Transitive dependencies are the dependencies of the project dependencies.</p><a name="Project_Transitive_Dependencies_compile"></a><div class="section"><h3>compile<a name="compile"></a></h3><p>The following is a list of compile dependencies for this project. These dependencies are required to compile and run the application:</p><table border="0" class="table table-striped"><tr class="a"><th>GroupId</th><th>ArtifactId</th><th>Version</th><th>Type</th><th>License</th></tr><tr class="b"><td>net.sourceforge.cobertura</td><td><a class="externalLink" href="http://cobertura.sourceforge.net">cobertura</a></td><td>1.9.4.1</td><td>jar</td><td><a class="externalLink" href="http://www.gnu.org/licenses/gpl.txt">The GNU General Public License, Version 2</a></td></tr><tr class="a"><td>org.apache.ant</td><td><a class="externalLink" href="http://ant.apache.org/ant/">ant</a></td><td>1.7.0</td><td>jar</td><td>-</td></tr><tr class="b"><td>org.apache.ant</td><td><a class="externalLink" href="http://ant.apache.org/ant-launcher/">ant-launcher</a></td><td>1.7.0</td><td>jar</td><td>-</td></tr></table></div></div><a name="Project_Dependency_Graph"></a><div class="section"><h2>Project Dependency Graph<a name="Project_Dependency_Graph"></a></h2><script language="javascript" type="text/javascript">
+      function toggleDependencyDetail( divId, imgId )
+      {
+        var div = document.getElementById( divId );
+        var img = document.getElementById( imgId );
+        if( div.style.display == '' )
+        {
+          div.style.display = 'none';
+          img.src='./images/icon_info_sml.gif';
+        }
+        else
+        {
+          div.style.display = '';
+          img.src='./images/close.gif';
+        }
+      }
+</script>
+<a name="Dependency_Tree"></a><div class="section"><h3>Dependency Tree<a name="Dependency_Tree"></a></h3><ul><li>com.clickconcepts.project:master-site-pom:pom:0.15-SNAPSHOT <img id="_567467805" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_287036651', '_567467805' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_287036651" style="display:none"><table border="0" class="table table-striped"><tr class="a"><th>master-site-pom</th></tr><tr class="b"><td><p><b>Description: </b>This is a master pom that contains Site documentation</p><p><b>URL: </b><a class="externalLink" href="http://github.com/mike-ensor/clickconcepts-master-pom">http://github.com/mike-ensor/clickconcepts-master-pom</a></p><p><b>Project License: </b><a class="externalLink" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons By, Version 3.0</a></p></td></tr></table></div><ul><li>net.sourceforge.cobertura:cobertura-runtime:pom:1.9.4.1 (compile) <img id="_329306751" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_387723498', '_329306751' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_387723498" style="display:none"><table border="0" class="table table-striped"><tr class="a"><th>Cobertura :: Limited Runtime</th></tr><tr class="b"><td><p><b>Description: </b>Cobertura Runtime artifact to prevent unneeded dependencies at runtime.</p><p><b>Project License: </b><a class="externalLink" href="http://www.gnu.org/licenses/gpl.txt">The GNU General Public License, Version 2</a></p></td></tr></table></div><ul><li>net.sourceforge.cobertura:cobertura:jar:1.9.4.1 (compile) <img id="_1071222403" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_1248528164', '_1071222403' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_1248528164" style="display:none"><table border="0" class="table table-striped"><tr class="a"><th>Cobertura</th></tr><tr class="b"><td><p><b>Description: </b>Cobertura is a free Java tool that calculates the percentage of code accessed by tests.
+    It can be used to identify which parts of your Java program are lacking test coverage. It is based on jcoverage.</p><p><b>URL: </b><a class="externalLink" href="http://cobertura.sourceforge.net">http://cobertura.sourceforge.net</a></p><p><b>Project License: </b><a class="externalLink" href="http://www.gnu.org/licenses/gpl.txt">The GNU General Public License, Version 2</a></p></td></tr></table></div><ul><li>org.apache.ant:ant:jar:1.7.0 (compile) <img id="_324025879" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_318025339', '_324025879' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_318025339" style="display:none"><table border="0" class="table table-striped"><tr class="a"><th>org.apache.tools.ant</th></tr><tr class="b"><td><p><b>Description: </b>Apache Ant</p><p><b>URL: </b><a class="externalLink" href="http://ant.apache.org/ant/">http://ant.apache.org/ant/</a></p><p><b>Project License: </b>No license is defined for this project.</p></td></tr></table></div><ul><li>org.apache.ant:ant-launcher:jar:1.7.0 (compile) <img id="_1060792763" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_807195850', '_1060792763' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_807195850" style="display:none"><table border="0" class="table table-striped"><tr class="a"><th>ant-launcher</th></tr><tr class="b"><td><p><b>Description: </b>master POM</p><p><b>URL: </b><a class="externalLink" href="http://ant.apache.org/ant-launcher/">http://ant.apache.org/ant-launcher/</a></p><p><b>Project License: </b>No license is defined for this project.</p></td></tr></table></div></li></ul></li></ul></li></ul></li></ul></li></ul></div></div><a name="Licenses"></a><div class="section"><h2>Licenses<a name="Licenses"></a></h2><p><b>Creative Commons By, Version 3.0: </b>master-site-pom</p><p><b>Unknown: </b>ant-launcher, org.apache.tools.ant</p><p><b>The GNU General Public License, Version 2: </b>Cobertura, Cobertura :: Limited Runtime</p></div>
                   </div>
             </div>
           </div>
