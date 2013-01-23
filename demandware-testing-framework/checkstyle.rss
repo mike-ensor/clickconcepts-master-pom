@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<rss version="0.91">
+  <channel>
+    <title>demandware-testing-framework - Checkstyle report</title>
+    <link>https://bitbucket.org/mikeensor/demandware-testing-framework</link>
+    <description>demandware-testing-framework - Checkstyle report</description>
+    <language>en-us</language>
+    <copyright>&#169;2012 - 2013 Acquity Group</copyright>
+    <item>
+      <title>File: 1,
+             Errors: 0,
+             Warnings: 0,
+             Infos: 0
+      </title>
+            <link>https://bitbucket.org/mikeensor/demandware-testing-framework/checkstyle.html</link>
+      <description>
+        <p>Click <a href="https://bitbucket.org/mikeensor/demandware-testing-framework/checkstyle.html">here</a> for the full Checkstyle report.</p>
+
+        <table summary="Files" boder="1">
+          <thead>
+            <tr>
+              <th>Files</th>
+              <th style="width:30px;"><abbr title="Info">I</abbr></th>
+              <th style="width:30px;"><abbr title="Warning">W</abbr></th>
+              <th style="width:30px;"><abbr title="Error">E</abbr></th>
+            </tr>
+          </thead>
+          <tbody>
+                          <tr>
+                <td>
+                  <a href="https://bitbucket.org/mikeensor/demandware-testing-framework/checkstyle.html#com.acquitygroup.webtest.util.RandomUtil.java">com/acquitygroup/webtest/util/RandomUtil.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                      </tbody>
+        </table>
+        
+      </description>
+    </item>
+  </channel>
+</rss>
+
