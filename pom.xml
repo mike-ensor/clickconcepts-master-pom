@@ -117,6 +117,7 @@
         <scm-publish.scmBranch>gh-pages</scm-publish.scmBranch>
         <!-- @OVERRIDE [SCM location for documentation repository]  -->
         <scm-publish.pubScmUrl>scm:git:git@github.com:mike-ensor/clickconcepts-master-pom.git</scm-publish.pubScmUrl>
+        <scm-publish.siteDocOuputDirectory>${reporting.outputDirectory}</scm-publish.siteDocOuputDirectory>
 
         <!-- ========================  -->
         <!--    PROJECT PROPERTIES     -->
@@ -195,8 +196,8 @@
         <!-- NOTE: Choose the changelog File Uri for your project. By default, this will fail if not setup -->
         <!-- example: <changelog.fileUri>${changelog.bitbucket.fileUri}</changelog.fileUri>  -->
         <!-- @OVERRIDE ENFORCER will fail if these are not defined -->
-        <changelog.fileUri />
-        <changelog.revision.fileUri />
+        <changelog.fileUri/>
+        <changelog.revision.fileUri/>
 
         <!-- =============================  -->
         <!--    PLUGIN STATUS PROPERTIES    -->
@@ -250,7 +251,9 @@
                     <configuration>
                         <checkoutDirectory>${scmPublish.checkoutDirectory}</checkoutDirectory>
                         <checkinComment>Publishing Site Docs for ${project.artifactId}:${project.version}</checkinComment>
-                        <tryUpdate>true</tryUpdate>
+                        <!-- Plugins defaults to "target/staging" and since the distributionManagement section is a pain in the ass for site docs, this is easier -->
+                        <content>${scm-publish.siteDocOuputDirectory}</content>
+                        <skipDeletedFiles>true</skipDeletedFiles>
                         <pubScmUrl>${scm-publish.pubScmUrl}</pubScmUrl>
                         <scmBranch>${scm-publish.scmBranch}</scmBranch>
                     </configuration>
@@ -861,7 +864,7 @@
                         <include>**/*Test.java</include>
                         <include>**/*Specification.java</include>
                     </includes>
-                    <systemProperties />
+                    <systemProperties/>
                 </configuration>
             </plugin>
             <plugin>
