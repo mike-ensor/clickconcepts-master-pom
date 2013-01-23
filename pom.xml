@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.clickconcepts.project</groupId>
     <artifactId>master-site-pom</artifactId>
-    <version>0.15-SNAPSHOT</version>
+    <version>0.15</version>
     <packaging>pom</packaging>
     <!--
     NOTE: Snapshot release
@@ -22,7 +22,7 @@
     1. mvn clean site:site scm-publish:publish-scm -Pinstall
 
     NOTE: To release documentation to BitBucket
-    1. Modify <siteOutputDirectory/> to add in the project artifact ID as a folder (BitBucket has one root repository and uses folders for different projects. NOTE: "install" profile is for this project only)
+    1. Modify <siteOutputDirectory /> to add in the project artifact ID as a folder (BitBucket has one root repository and uses folders for different projects. NOTE: "install" profile is for this project only)
     2. mvn clean site:site scm-publish:publish-scm -Pinstall
 
     ** See: http://maven.apache.org/plugins/maven-scm-publish-plugin/
@@ -35,7 +35,7 @@
         <connection>scm:git:ssh://${repository.domain}/${repository.user}/${repository.name}.git</connection>
         <url>https://${repository.domain}/${repository.user}/${repository.name}</url>
         <developerConnection>scm:git:ssh://${repository.domain}/${repository.user}/${repository.name}.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>master-site-pom-0.15</tag>
     </scm>
 
     <prerequisites>
@@ -195,8 +195,8 @@
         <!-- NOTE: Choose the changelog File Uri for your project. By default, this will fail if not setup -->
         <!-- example: <changelog.fileUri>${changelog.bitbucket.fileUri}</changelog.fileUri>  -->
         <!-- @OVERRIDE ENFORCER will fail if these are not defined -->
-        <changelog.fileUri/>
-        <changelog.revision.fileUri/>
+        <changelog.fileUri />
+        <changelog.revision.fileUri />
 
         <!-- =============================  -->
         <!--    PLUGIN STATUS PROPERTIES    -->
@@ -861,7 +861,7 @@
                         <include>**/*Test.java</include>
                         <include>**/*Specification.java</include>
                     </includes>
-                    <systemProperties/>
+                    <systemProperties />
                 </configuration>
             </plugin>
             <plugin>
