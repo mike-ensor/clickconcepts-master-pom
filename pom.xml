@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.clickconcepts.project</groupId>
     <artifactId>master-site-pom</artifactId>
-    <version>0.16-SNAPSHOT</version>
+    <version>0.16</version>
     <packaging>pom</packaging>
     <!--
     NOTE: Snapshot release
@@ -35,7 +35,7 @@
         <connection>scm:git:ssh://${repository.domain}/${repository.user}/${repository.name}.git</connection>
         <url>https://${repository.domain}/${repository.user}/${repository.name}</url>
         <developerConnection>scm:git:ssh://${repository.domain}/${repository.user}/${repository.name}.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>master-site-pom-0.16</tag>
     </scm>
 
     <prerequisites>
@@ -196,8 +196,8 @@
         <!-- NOTE: Choose the changelog File Uri for your project. By default, this will fail if not setup -->
         <!-- example: <changelog.fileUri>${changelog.bitbucket.fileUri}</changelog.fileUri>  -->
         <!-- @OVERRIDE ENFORCER will fail if these are not defined -->
-        <changelog.fileUri/>
-        <changelog.revision.fileUri/>
+        <changelog.fileUri />
+        <changelog.revision.fileUri />
 
         <!-- =============================  -->
         <!--    PLUGIN STATUS PROPERTIES    -->
@@ -864,7 +864,7 @@
                         <include>**/*Test.java</include>
                         <include>**/*Specification.java</include>
                     </includes>
-                    <systemProperties/>
+                    <systemProperties />
                 </configuration>
             </plugin>
             <plugin>
