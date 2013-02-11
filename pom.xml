@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.clickconcepts.project</groupId>
     <artifactId>master-site-pom</artifactId>
@@ -117,7 +118,7 @@
         <scm-publish.scmBranch>gh-pages</scm-publish.scmBranch>
         <!-- @OVERRIDE [SCM location for documentation repository]  -->
         <scm-publish.pubScmUrl>scm:git:git@github.com:mike-ensor/clickconcepts-master-pom.git</scm-publish.pubScmUrl>
-        <scm-publish.siteDocOuputDirectory>${reporting.outputDirectory}</scm-publish.siteDocOuputDirectory>
+        <scm-publish.siteDocOuputDirectory>${project.reporting.outputDirectory}</scm-publish.siteDocOuputDirectory>
 
         <!-- ========================  -->
         <!--    PROJECT PROPERTIES     -->
@@ -196,8 +197,8 @@
         <!-- NOTE: Choose the changelog File Uri for your project. By default, this will fail if not setup -->
         <!-- example: <changelog.fileUri>${changelog.bitbucket.fileUri}</changelog.fileUri>  -->
         <!-- @OVERRIDE ENFORCER will fail if these are not defined -->
-        <changelog.fileUri />
-        <changelog.revision.fileUri />
+        <changelog.fileUri/>
+        <changelog.revision.fileUri/>
 
         <!-- =============================  -->
         <!--    PLUGIN STATUS PROPERTIES    -->
@@ -815,14 +816,20 @@
                                 <requireProperty>
                                     <property>changelog.fileUri</property>
                                     <regex>.*\w.*</regex>
-                                    <message>Please set the property [changelog.fileUri] to BitBucket (changelog.bitbucket.fileUri), GitHub (changelog.github.fileUri) or Other (make your own)</message>
-                                    <regexMessage>Please set the property [changelog.fileUri] to BitBucket (changelog.bitbucket.fileUri), GitHub (changelog.github.fileUri) or Other (make your own)</regexMessage>
+                                    <message>Please set the property [changelog.fileUri] to BitBucket (changelog.bitbucket.fileUri), GitHub (changelog.github.fileUri) or Other (make your own)
+                                    </message>
+                                    <regexMessage>Please set the property [changelog.fileUri] to BitBucket (changelog.bitbucket.fileUri), GitHub (changelog.github.fileUri) or Other (make your own)
+                                    </regexMessage>
                                 </requireProperty>
                                 <requireProperty>
                                     <property>changelog.revision.fileUri</property>
                                     <regex>.*\w.*</regex>
-                                    <message>Please set the property [changelog.revision.fileUri] to BitBucket (changelog.revision.bitbucket.fileUri), GitHub (changelog.revision.github.fileUri) or Other (make your own)</message>
-                                    <regexMessage>Please set the property [changelog.revision.fileUri] to BitBucket (changelog.revision.bitbucket.fileUri), GitHub (changelog.revision.github.fileUri) or Other (make your own)</regexMessage>
+                                    <message>Please set the property [changelog.revision.fileUri] to BitBucket (changelog.revision.bitbucket.fileUri), GitHub (changelog.revision.github.fileUri) or
+                                        Other (make your own)
+                                    </message>
+                                    <regexMessage>Please set the property [changelog.revision.fileUri] to BitBucket (changelog.revision.bitbucket.fileUri), GitHub (changelog.revision.github.fileUri)
+                                        or Other (make your own)
+                                    </regexMessage>
                                 </requireProperty>
                                 <requireProperty>
                                     <property>site-docs.url</property>
@@ -864,7 +871,7 @@
                         <include>**/*Test.java</include>
                         <include>**/*Specification.java</include>
                     </includes>
-                    <systemProperties />
+                    <systemProperties/>
                 </configuration>
             </plugin>
             <plugin>
