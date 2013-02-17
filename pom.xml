@@ -27,6 +27,9 @@
     2. mvn clean site:site scm-publish:publish-scm -Pinstall
 
     ** See: http://maven.apache.org/plugins/maven-scm-publish-plugin/
+
+    Both combined:
+    mvn clean release:prepare site:site scm-publish:publish-scm -Pgpg,install release:perform -Darguments="-Dgpg.passphrase=######## -Denforcer.skip=true" -Denforcer.skip=true
     -->
 
     <name>${project.artifactId}</name>
