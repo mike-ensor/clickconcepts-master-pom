@@ -28,6 +28,12 @@
                 <li>CodeNarc</li>
                 <li>FindBugs</li>
             </ul>
+            <p>
+                <strong>NOTE:</strong>
+                In order to use PMD or Checkstyle, the required XML files must be available to the plugin through the (maven-checkstyle-plugin.configLocation) and (maven-pmd-plugin.configLocation) properties
+            </p>
+
+
         </subsection>
 
         <subsection name="Site Documentation">
