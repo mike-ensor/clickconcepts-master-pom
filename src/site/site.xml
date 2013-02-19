@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/DECORATION/1.0.0"
+<project xmlns="http://maven.apache.org/DECORATION/1.3.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.0 http://maven.apache.org/xsd/decoration-1.0.0.xsd"
+         xsi:schemaLocation="http://maven.apache.org/DECORATION/1.3.0 http://maven.apache.org/xsd/decoration-1.3.0.xsd"
          name="${project.artifactId}">
     <skin>
         <groupId>org.apache.maven.skins</groupId>
@@ -10,7 +10,7 @@
     </skin>
 
     <poweredBy>
-        <logo name="Click Concepts" href="http://www.ensor.cc" img="http://www.acquitygroup.com/App_Themes/AcquityCorporate/images/logo.gif"/>
+        <logo name="" href="http://www.ensor.cc" img="img/click-concepts-logo.png"/>
     </poweredBy>
 
     <custom>
@@ -19,16 +19,17 @@
             <topBarIcon>
                 <name>Click Concepts</name>
                 <alt>Click Concepts Homepage</alt>
-                <src>http://www.acquitygroup.com/App_Themes/AcquityCorporate/images/logo.gif</src>
+                <src>img/click-concepts-square-logo.png</src>
                 <href>http://www.ensor.cc</href>
             </topBarIcon>
             <sourceLineNumbersEnabled>true</sourceLineNumbersEnabled>
+            <facebookLike/>
+            <googlePlusOne/>
             <twitter>
                 <user>mikeensor</user>
                 <showUser>true</showUser>
                 <showFollowers>true</showFollowers>
             </twitter>
-
         </fluidoSkin>
     </custom>
 
@@ -37,16 +38,19 @@
     <version position="right"/>
 
     <body>
-
-        <links>
-            <item name="Mike Ensor's Blog" href="http://www.ensor.cc/"/>
-            <item name="Github Homepage" href="http://www.github.com/mike-ensor"/>
-        </links>
-
         <menu name="Documentation">
             <item name="Home" href="/index.html"/>
         </menu>
-        <menu name="Modules" ref="modules"/>
-        <menu name="Reports" ref="reports"/>
+
+        <menu name="Modules" ref="modules" inherit="none"/>
+        <menu name="Reports" ref="reports" inherit="none"/>
+
+        <menu name="Links" inherit="none" inheritAsRef="true">
+            <item name="Mike's Blog" href="http://www.ensor.cc/"/>
+            <item name="Github Homepage" href="http://www.github.com/mike-ensor"/>
+            <item name="Bitbucket Homepage" href="http://mikeensor.bitbucket.com/"/>
+            <item name="Linked In Profile" href="http://www.linkedin.com/in/mikeensor"/>
+        </menu>
+
     </body>
 </project>

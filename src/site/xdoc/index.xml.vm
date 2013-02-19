@@ -33,7 +33,6 @@
                 In order to use PMD or Checkstyle, the required XML files must be available to the plugin through the (maven-checkstyle-plugin.configLocation) and (maven-pmd-plugin.configLocation) properties
             </p>
 
-
         </subsection>
 
         <subsection name="Site Documentation">
@@ -44,7 +43,10 @@
 
         <section name="Run">
             <p>Generate your site documentation</p>
-            <source>mvn clean verify site:stage</source>
+            <source>mvn clean verify site</source>
+            <p>Then point your browser to
+                <em>/&lt;site base&gt;/target/site/index.html</em>
+            </p>
         </section>
     </body>
 </document>
