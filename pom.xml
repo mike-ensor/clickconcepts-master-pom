@@ -1,10 +1,9 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.clickconcepts.project</groupId>
     <artifactId>master-site-pom</artifactId>
-    <version>0.19-SNAPSHOT</version>
+    <version>0.19</version>
     <packaging>pom</packaging>
     <!--
     NOTE: Snapshot release
@@ -39,7 +38,8 @@
         <connection>scm:git:ssh://${repository.domain}/${repository.user}/${repository.name}.git</connection>
         <url>https://${repository.domain}/${repository.user}/${repository.name}</url>
         <developerConnection>scm:git:ssh://${repository.domain}/${repository.user}/${repository.name}.git</developerConnection>
-    </scm>
+      <tag>master-site-pom-0.19</tag>
+  </scm>
 
     <prerequisites>
         <!-- Would prefer 3.0.4+, but 3.0.3 will work -->
@@ -199,8 +199,8 @@
         <!-- NOTE: Choose the changelog File Uri for your project. By default, this will fail if not setup -->
         <!-- example: <changelog.fileUri>${changelog.bitbucket.fileUri}</changelog.fileUri>  -->
         <!-- @OVERRIDE ENFORCER will fail if these are not defined -->
-        <changelog.fileUri/>
-        <changelog.revision.fileUri/>
+        <changelog.fileUri />
+        <changelog.revision.fileUri />
 
         <!-- =============================  -->
         <!--    PLUGIN STATUS PROPERTIES    -->
@@ -875,7 +875,7 @@
                         <include>**/*Test.java</include>
                         <include>**/*Specification.java</include>
                     </includes>
-                    <systemProperties/>
+                    <systemProperties />
                 </configuration>
             </plugin>
             <plugin>
