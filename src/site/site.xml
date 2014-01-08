@@ -10,7 +10,7 @@
     </skin>
 
     <poweredBy>
-        <logo name="" href="http://www.ensor.cc" img="img/click-concepts-logo.png"/>
+        <logo name="" href="http://www.ensor.cc" img="/img/click-concepts-logo.png"/>
     </poweredBy>
 
     <custom>
@@ -19,7 +19,7 @@
             <topBarIcon>
                 <name>Click Concepts</name>
                 <alt>Click Concepts Homepage</alt>
-                <src>img/click-concepts-square-logo.png</src>
+                <src>/img/click-concepts-square-logo.png</src>
                 <href>http://www.ensor.cc</href>
             </topBarIcon>
             <sourceLineNumbersEnabled>true</sourceLineNumbersEnabled>
