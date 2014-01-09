@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.clickconcepts.project</groupId>
     <artifactId>master-site-pom</artifactId>
@@ -37,9 +38,10 @@
     <scm><!-- git@github.com:mike-ensor/clickconcepts-master-pom.git -->
         <connection>scm:git:ssh://${repository.domain}/${repository.user}/${repository.name}.git</connection>
         <url>https://${repository.domain}/${repository.user}/${repository.name}</url>
-        <developerConnection>scm:git:ssh://${repository.domain}/${repository.user}/${repository.name}.git</developerConnection>
+        <developerConnection>scm:git:ssh://${repository.domain}/${repository.user}/${repository.name}.git
+        </developerConnection>
         <tag>HEAD</tag>
-  </scm>
+    </scm>
 
     <prerequisites>
         <!-- Would prefer 3.0.4+, but 3.0.3 will work -->
@@ -169,7 +171,7 @@
         <plugin.scm-publish.version>1.0-beta-2</plugin.scm-publish.version>
         <plugin.site.version>3.2</plugin.site.version>
         <plugin.source.version>2.2.1</plugin.source.version>
-        <plugin.surefire.version>2.14</plugin.surefire.version>
+        <plugin.surefire.version>2.15</plugin.surefire.version>
         <plugin.taglist.version>2.4</plugin.taglist.version>
         <plugin.wagon-ssh.version>2.2</plugin.wagon-ssh.version>
         <plugin.wagon-webdav.version>1.0</plugin.wagon-webdav.version>
@@ -179,7 +181,8 @@
         <!--    CODE ANALYSIS PROPERTIES    -->
         <!-- =============================  -->
         <!-- @OVERRIDE as needed  -->
-        <maven-checkstyle-plugin.configLocation>${project.basedir}/code-analysis/checkstyle.xml</maven-checkstyle-plugin.configLocation>
+        <maven-checkstyle-plugin.configLocation>${project.basedir}/code-analysis/checkstyle.xml
+        </maven-checkstyle-plugin.configLocation>
         <!-- @OVERRIDE as needed  -->
         <maven-pmd-plugin.configLocation>${project.basedir}/code-analysis/pmd.xml</maven-pmd-plugin.configLocation>
         <!-- @OVERRIDE as needed -->
@@ -199,8 +202,8 @@
         <!-- NOTE: Choose the changelog File Uri for your project. By default, this will fail if not setup -->
         <!-- example: <changelog.fileUri>${changelog.bitbucket.fileUri}</changelog.fileUri>  -->
         <!-- @OVERRIDE ENFORCER will fail if these are not defined -->
-        <changelog.fileUri />
-        <changelog.revision.fileUri />
+        <changelog.fileUri/>
+        <changelog.revision.fileUri/>
 
         <!-- =============================  -->
         <!--    PLUGIN STATUS PROPERTIES    -->
@@ -254,7 +257,8 @@
                     <inherited>true</inherited>
                     <configuration>
                         <checkoutDirectory>${scmPublish.checkoutDirectory}</checkoutDirectory>
-                        <checkinComment>Publishing Site Docs for ${project.artifactId}:${project.version}</checkinComment>
+                        <checkinComment>Publishing Site Docs for ${project.artifactId}:${project.version}
+                        </checkinComment>
                         <!-- Plugins defaults to "target/staging" and since the distributionManagement section is a pain in the ass for site docs, this is easier -->
                         <content>${scm-publish.siteDocOuputDirectory}</content>
                         <skipDeletedFiles>true</skipDeletedFiles>
@@ -588,7 +592,8 @@
                                         <id>changelog</id>
                                         <configuration>
                                             <displayFileRevDetailUrl>${changelog.fileUri}</displayFileRevDetailUrl>
-                                            <displayChangeSetDetailUrl>${changelog.revision.fileUri}</displayChangeSetDetailUrl>
+                                            <displayChangeSetDetailUrl>${changelog.revision.fileUri}
+                                            </displayChangeSetDetailUrl>
                                             <headingDateFormat>MM-dd-yyyy</headingDateFormat>
                                             <outputEncoding>${project.reporting.outputEncoding}</outputEncoding>
                                             <type>range</type>
@@ -820,18 +825,26 @@
                                 <requireProperty>
                                     <property>changelog.fileUri</property>
                                     <regex>.*\w.*</regex>
-                                    <message>Please set the property [changelog.fileUri] to BitBucket (changelog.bitbucket.fileUri), GitHub (changelog.github.fileUri) or Other (make your own)
+                                    <message>Please set the property [changelog.fileUri] to BitBucket
+                                        (changelog.bitbucket.fileUri), GitHub (changelog.github.fileUri) or Other (make
+                                        your own)
                                     </message>
-                                    <regexMessage>Please set the property [changelog.fileUri] to BitBucket (changelog.bitbucket.fileUri), GitHub (changelog.github.fileUri) or Other (make your own)
+                                    <regexMessage>Please set the property [changelog.fileUri] to BitBucket
+                                        (changelog.bitbucket.fileUri), GitHub (changelog.github.fileUri) or Other (make
+                                        your own)
                                     </regexMessage>
                                 </requireProperty>
                                 <requireProperty>
                                     <property>changelog.revision.fileUri</property>
                                     <regex>.*\w.*</regex>
-                                    <message>Please set the property [changelog.revision.fileUri] to BitBucket (changelog.revision.bitbucket.fileUri), GitHub (changelog.revision.github.fileUri) or
+                                    <message>Please set the property [changelog.revision.fileUri] to BitBucket
+                                        (changelog.revision.bitbucket.fileUri), GitHub
+                                        (changelog.revision.github.fileUri) or
                                         Other (make your own)
                                     </message>
-                                    <regexMessage>Please set the property [changelog.revision.fileUri] to BitBucket (changelog.revision.bitbucket.fileUri), GitHub (changelog.revision.github.fileUri)
+                                    <regexMessage>Please set the property [changelog.revision.fileUri] to BitBucket
+                                        (changelog.revision.bitbucket.fileUri), GitHub
+                                        (changelog.revision.github.fileUri)
                                         or Other (make your own)
                                     </regexMessage>
                                 </requireProperty>
@@ -844,14 +857,21 @@
                                 <requireProperty>
                                     <property>repository.domain</property>
                                     <regex>.*\w.*</regex>
-                                    <message>Required parameter repository.domain is missing in the Project's Properties (Typical values [github.com or bitbucket.org]</message>
-                                    <regexMessage>Required parameter repository.domain is missing in the Project's Properties (Typical values [github.com or bitbucket.org]</regexMessage>
+                                    <message>Required parameter repository.domain is missing in the Project's Properties
+                                        (Typical values [github.com or bitbucket.org]
+                                    </message>
+                                    <regexMessage>Required parameter repository.domain is missing in the Project's
+                                        Properties (Typical values [github.com or bitbucket.org]
+                                    </regexMessage>
                                 </requireProperty>
                                 <requireProperty>
                                     <property>repository.name</property>
                                     <regex>.*\w.*</regex>
-                                    <message>Required parameter repository.user is missing in the Project's Properties</message>
-                                    <regexMessage>Required parameter repository.user is missing in the Project's Properties</regexMessage>
+                                    <message>Required parameter repository.user is missing in the Project's Properties
+                                    </message>
+                                    <regexMessage>Required parameter repository.user is missing in the Project's
+                                        Properties
+                                    </regexMessage>
                                 </requireProperty>
                             </rules>
                             <fail>true</fail>
@@ -875,7 +895,7 @@
                         <include>**/*Test.java</include>
                         <include>**/*Specification.java</include>
                     </includes>
-                    <systemProperties />
+                    <systemProperties/>
                 </configuration>
             </plugin>
             <plugin>
