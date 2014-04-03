@@ -148,7 +148,6 @@
         <plugin.changelog.version>2.2</plugin.changelog.version>
         <plugin.changes.version>2.8</plugin.changes.version>
         <plugin.cobertura.version>2.6</plugin.cobertura.version>
-        <plugin.codenarc.version>0.18-1</plugin.codenarc.version>
         <plugin.compiler.version>3.1</plugin.compiler.version>
         <plugin.dependency.version>2.8</plugin.dependency.version>
         <plugin.deploy.version>2.8.1</plugin.deploy.version>
@@ -164,10 +163,10 @@
         <plugin.jxr.version>2.4</plugin.jxr.version>
         <plugin.pmd.version>3.1</plugin.pmd.version>
         <plugin.project-info-reports.version>2.7</plugin.project-info-reports.version>
-        <plugin.release.version>2.4</plugin.release.version>
+        <plugin.release.version>2.5</plugin.release.version>
         <plugin.resources.version>2.6</plugin.resources.version>
         <plugin.scm-publish.version>1.0</plugin.scm-publish.version>
-        <plugin.site.version>3.3</plugin.site.version>
+        <plugin.site.version>3.2</plugin.site.version>
         <plugin.source.version>2.2.1</plugin.source.version>
         <plugin.surefire.version>2.17</plugin.surefire.version>
         <plugin.taglist.version>2.4</plugin.taglist.version>
@@ -185,8 +184,6 @@
         <maven-pmd-plugin.configLocation>${project.basedir}/code-analysis/pmd.xml</maven-pmd-plugin.configLocation>
         <!-- @OVERRIDE as needed -->
         <cobertura.base.package>com.clickconcepts</cobertura.base.package>
-        <!-- Needed for Code Narc only -->
-        <groovy.version>2.2.2</groovy.version>
 
         <!-- ==========================  -->
         <!--    CHANGE LOG PROPERTIES    -->
@@ -210,8 +207,6 @@
         <checkstyle.skip>false</checkstyle.skip>
         <cobertura.skip>true</cobertura.skip>
         <!-- Cobertura is not active by default, look for project>cobertura plugin for more details -->
-        <codenarc.skip>true</codenarc.skip>
-        <!-- Codenarc turned off by default -->
         <enforcer.skip>false</enforcer.skip>
         <findbugs.skip>false</findbugs.skip>
         <javadocs.skip>false</javadocs.skip>
@@ -412,16 +407,6 @@
                             </goals>
                         </execution>
                     </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>codenarc-maven-plugin</artifactId>
-                    <version>${plugin.codenarc.version}</version>
-                    <configuration>
-                        <groovyVersion>${groovy.version}</groovyVersion>
-                        <skip>${codenarc.skip}</skip>
-                        <codeNarcVersion>0.18</codeNarcVersion>
-                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -666,15 +651,6 @@
                             <plugin>
                                 <groupId>org.apache.maven.plugins</groupId>
                                 <artifactId>maven-jxr-plugin</artifactId>
-                            </plugin>
-                            <plugin>
-                                <groupId>org.codehaus.mojo</groupId>
-                                <artifactId>codenarc-maven-plugin</artifactId>
-                                <configuration>
-                                    <groovyVersion>${groovy.version}</groovyVersion>
-                                    <skip>${codenarc.skip}</skip>
-                                    <codeNarcVersion>0.18</codeNarcVersion>
-                                </configuration>
                             </plugin>
                             <plugin>
                                 <groupId>org.apache.maven.plugins</groupId>
